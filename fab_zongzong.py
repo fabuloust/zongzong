@@ -126,7 +126,6 @@ def zongzong(commit_id='origin/master'):
         # ./FAB.sh biztest:commit_id=xxx
     fab zongzong
     """
-    print(123)
     code_dir = "/root/workspace/zongzong"
     settings_file = "settings.py"
 
