@@ -3,7 +3,6 @@
 *.pyc
 .svn
 /supervisord.conf
-/settings.py
 /uwsgi.xml
 /.coverage
 errorlog*.txt

@@ -95,15 +95,15 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
         print_step_info(steps_num, current_step_num, "删除版本库之外的文件")
 
         # 5.更新settings.py
-        # run('cp %s settings.py' % settings_name)
-        # current_step_num += 1
-        # print_step_info(steps_num, current_step_num, "更新settings")
+        run('cp %s settings.py' % settings_name)
+        current_step_num += 1
+        print_step_info(steps_num, current_step_num, "更新settings")
 
         # 6.处理静态文件
-        # _test_do_rename_static_files()  # 重命名静态文件及html内的相关引用，解决又拍云缓存不更新问题
-        # _test_do_collect_static()
-        # current_step_num += 1
-        # print_step_info(steps_num, current_step_num, "处理静态文件")
+        _test_do_rename_static_files()  # 重命名静态文件及html内的相关引用，解决又拍云缓存不更新问题
+        _test_do_collect_static()
+        current_step_num += 1
+        print_step_info(steps_num, current_step_num, "处理静态文件")
 
         # 7.数据库的处理
         _test_db_schema_migration()
