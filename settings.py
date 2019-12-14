@@ -25,7 +25,7 @@ SECRET_KEY = '@lu_8lklf*-+=hiuz8udvx@m9ug))b71d9!i873guu(%qz3d!d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 ]
 
 OWN_APPS = [
-    'base',
+    'api',
+    'footprint',
+    'user_info',
 ]
 
 INSTALLED_APPS += OWN_APPS
@@ -124,3 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REDIS = {
+    'default': {
+        'host': '127.0.0.1',
+        'port': '6379',
+        'password': '',
+    }
+}
