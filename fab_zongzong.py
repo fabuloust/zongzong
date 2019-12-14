@@ -41,16 +41,14 @@ def _test_db_schema_migration():
     """
     对所有app进行makemigrations
     """
-    apps = ";".join(OWN_APPS)
-    run("./PYTHON.sh manage.py makemigrations '%s'" % apps)
+    run("./PYTHON.sh manage.py makemigrations" )
 
 
 def _test_db_migrate():
     """
     migrate
     """
-    apps = ";".join(OWN_APPS)
-    run("./PYTHON.sh manage.py migrate '%s' " % apps)
+    run("./PYTHON.sh manage.py migrate")
 
 
 def test_db_migrate_all():
@@ -115,9 +113,9 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
         print_step_info(steps_num, current_step_num, "执行数据库的升级")
 
         # 8. 重启服务
-        # run('sh scripts/uwsgi/restart.sh')
-        # current_step_num += 1
-        # print_step_info(steps_num, current_step_num, "重启服务")
+        run('sh scripts/uwsgi/restart.sh')
+        current_step_num += 1
+        print_step_info(steps_num, current_step_num, "重启服务")
 
 
 @hosts('root@59.110.161.78:22')
