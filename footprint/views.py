@@ -63,17 +63,17 @@ def post_footprint_view(request):
     return json_http_success()
 
 
-@login_required
-def get_footprint_detail_view(request):
-    """
-    获取痕迹详情
-    包含：
-    1.footprint详情
-    2.评论： 距离
-    3.评论的点赞数
-    :param request:
-    :return:
-    """
-    footprint_id = request.GET.get('footprint_id')
-    footprint = get_footprint_by_id_db(footprint_id)
-    footprint_detail =
+# @login_required
+# def get_footprint_detail_view(request):
+#     """
+#     获取痕迹详情
+#     包含：
+#     1.footprint详情
+#     2.评论： 距离
+#     3.评论的点赞数
+#     :param request:
+#     :return:
+#     """
+#     footprint_id = request.GET.get('footprint_id')
+#     footprint = get_footprint_by_id_db(footprint_id)
+#     footprint_detail =
