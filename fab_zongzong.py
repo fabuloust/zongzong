@@ -84,7 +84,7 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
 
         # 3. checkout到指定的分支，如果为master / develop 则为指定分支的最新代码
         run("git checkout %s" % commit_id)
-        if commit_id == "master" or commit_id == "develop":
+        if commit_id == "master":
             run("git pull origin %s" % commit_id)
         current_step_num += 1
         print_step_info(steps_num, current_step_num, "切换到指定分支")
@@ -121,7 +121,7 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
 
 
 @hosts('root@59.110.161.78:22')
-def zongzong(commit_id='origin/master'):
+def zongzong(commit_id='master'):
     """
         # ./FAB.sh biztest:commit_id=xxx
     fab zongzong
