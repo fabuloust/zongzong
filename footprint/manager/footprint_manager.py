@@ -87,40 +87,40 @@ def build_user_footprint(footprint):
     }
 
 
-def build_footprint_detail(footprint, request_user):
-    """
-    展示的痕迹详情，包括
-    1、用户头像、用户名、时间、距离自己，是否关注
-    2. footprint详情
-    3.评论（总数）： 各个评论及点赞数
-    :param footprint:
-    :param request_user: 查看的用户
-    :return: {
-        'followed': True or False,
-        'user_info': {
-            'image', 'show_time', 'latitude', 'longitude', 'place',
-        }
-        'footprint': {
-            'content', image_list, favor_num, reply_num, forward_num, show_time
-        }
-        'comment_num',
-        comment_list: [
-            {image, nickname, show_time, distance, favor_num, user_id},
-        ]
-    }
-    """
-    user_info = get_user_info_db(footprint.user)
-    user_info_data = {
-        'image': user_info.image,
-        'nickname': user_info.nickname,
-        'place': footprint.place,
-    }
-    foot_print_data = {
-        'content': footprint.content,
-        'image_list': footprint.image_list_str,
-        'favor_num': footprint.favor_num,
-        'reply_num': footprint.comment_num,
-        'forward_num': footprint.forward_num,
-        'show_time': get_time_show(footprint.created_time)
-    }
-    comment_list =
+# def build_footprint_detail(footprint, request_user):
+#     """
+#     展示的痕迹详情，包括
+#     1、用户头像、用户名、时间、距离自己，是否关注
+#     2. footprint详情
+#     3.评论（总数）： 各个评论及点赞数
+#     :param footprint:
+#     :param request_user: 查看的用户
+#     :return: {
+#         'followed': True or False,
+#         'user_info': {
+#             'image', 'show_time', 'latitude', 'longitude', 'place',
+#         }
+#         'footprint': {
+#             'content', image_list, favor_num, reply_num, forward_num, show_time
+#         }
+#         'comment_num',
+#         comment_list: [
+#             {image, nickname, show_time, distance, favor_num, user_id},
+#         ]
+#     }
+#     """
+#     user_info = get_user_info_db(footprint.user)
+#     user_info_data = {
+#         'image': user_info.image,
+#         'nickname': user_info.nickname,
+#         'place': footprint.place,
+#     }
+#     foot_print_data = {
+#         'content': footprint.content,
+#         'image_list': footprint.image_list_str,
+#         'favor_num': footprint.favor_num,
+#         'reply_num': footprint.comment_num,
+#         'forward_num': footprint.forward_num,
+#         'show_time': get_time_show(footprint.created_time)
+#     }
+#     comment_list =
