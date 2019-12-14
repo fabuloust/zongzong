@@ -8,7 +8,7 @@ urlpatterns = [
     path('footprint/create/', footprint.views.post_footprint_view),
 
     path('footprint/favor/', footprint.views.add_favor_view),
-    path('footprint/forward', footprint.views),
+    # path('footprint/forward', footprint.views),
 
 
 ]
