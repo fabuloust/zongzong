@@ -26,7 +26,7 @@ SECRET_KEY = '@lu_8lklf*-+=hiuz8udvx@m9ug))b71d9!i873guu(%qz3d!d'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 # Application definition
 
@@ -126,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = PROJECT_ROOT + '/static/'
 
 REDIS = {
     'default': {
