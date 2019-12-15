@@ -126,7 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = PROJECT_ROOT + '/static/'
+STATIC_ROOT = PROJECT_ROOT + '/root/workspace/zongzong/static/'
 
 REDIS = {
     'default': {
