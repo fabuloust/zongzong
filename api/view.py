@@ -5,4 +5,4 @@ def hello_view(request):
     """
     欢迎接口
     """
-    return json_http_response('欢迎来到踪踪')
+    return json_http_response('welcome to zongzong! ')
