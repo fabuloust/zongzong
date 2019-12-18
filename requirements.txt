@@ -22,3 +22,4 @@ django-mysqlpool==0.1-9
 
 httplib2==0.7.3
 simplejson==3.6.5
+pycrypto==2.6.1
