@@ -11,7 +11,7 @@ def login_and_get_session_id_view(request):
     使用小程序的登录然后返回session_id，目前支持两种登录方式：
     1、使用微信的code后台服务器验证方式
     2、使用春雨的用户名和账户验证
-    URL[POST]: /cooperation/wap/get_session_id/
+    URL[POST]: /weixin/get_session_id/
     :param request: {code, encryptedData, iv}
     """
     # 使用code方式进行登录

@@ -96,11 +96,11 @@ def get_wechat_mini_session_by_code(code, timeout=SYNC_REQUEST_TIME_OUT):
     :param timeout:
     :return:
     """
-    if is_for_testcase():
-        return WechatMiniResultCodeToSession({
-            "openid": 'oOKH50BZNJrNGTfiaEHVD66qY48s',
-            'session_key': 'eLM0zHCm8L7QcbfreW7UmA==',
-        })
+    # if is_for_testcase():
+    #     return WechatMiniResultCodeToSession({
+    #         "openid": 'oOKH50BZNJrNGTfiaEHVD66qY48s',
+    #         'session_key': 'eLM0zHCm8L7QcbfreW7UmA==',
+    #     })
 
     url = WEIXIN_MINI_CODE_TO_SESSION.format(**{
         "app_id": APP_ID,
