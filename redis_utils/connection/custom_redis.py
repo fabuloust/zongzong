@@ -89,7 +89,7 @@ class ConnectionPoolProxy(object):
         return repr(self._proxy_pool)
 
 
-class CustomRedis(pyredis.StrictRedis, WithSafe):
+class CustomRedis(pyredis.StrictRedis):
     def __init__(self, *args, **kwargs):
         super(CustomRedis, self).__init__(*args, **kwargs)
         self.connection_pool = ConnectionPoolProxy(self.connection_pool)

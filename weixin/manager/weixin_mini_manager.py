@@ -13,7 +13,7 @@ import datetime
 
 from django.contrib.auth import login
 
-from redis_utils.container.api_redis_client import redis
+# from redis_utils.container.api_redis_client import redis
 from user_info.manager.user_info_mananger import get_user_info_by_open_id_db, create_user_info_db
 from utilities.enum import EnumBase
 from weixin.consts import APP_ID
