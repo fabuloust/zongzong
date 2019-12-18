@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('footprint/', include('footprint.urls')),
+    path('weixin/', include('weixin.urls')),
 ]
