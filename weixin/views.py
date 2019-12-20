@@ -18,8 +18,8 @@ def login_and_get_session_id_view(request):
     code = request.POST.get('code')
     encrypted_data = request.POST.get('encryptedData')
     iv = request.POST.get('iv')
-    if code and encrypted_data and iv:
-        user, session_key, first_login = WxminiAuthManager.sync_wx_mini_user_info(code, encrypted_data, iv)
+    if code:
+        user, session_key = WxminiAuthManager.sync_wx_mini_user_info(code, encrypted_data, iv)
 
     # 使用form表单携带账户和密码进行登录
     else:

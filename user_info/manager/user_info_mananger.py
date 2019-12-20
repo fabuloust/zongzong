@@ -105,6 +105,11 @@ def get_user_info_by_open_id_db(open_id):
         return None
 
 
+def get_user_by_open_id_db(open_id):
+    user, created = get_or_create_user_db(open_id)
+    return user, created
+
+
 def create_user_info_db(open_id, nickname, image):
     """
     创建userbaseinfo

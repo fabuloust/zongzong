@@ -14,7 +14,8 @@ import datetime
 from django.contrib.auth import login
 
 # from redis_utils.container.api_redis_client import redis
-from user_info.manager.user_info_mananger import get_user_info_by_open_id_db, create_user_info_db
+from user_info.manager.user_info_mananger import get_user_info_by_open_id_db, create_user_info_db, \
+    get_user_by_open_id_db
 from utilities.enum import EnumBase
 from weixin.consts import APP_ID
 from weixin.manager.login_manager import get_wechat_mini_session_by_code
@@ -94,15 +95,17 @@ class WxminiAuthManager(object):
         """
         open_id, session_key, _ = cls.get_wx_mini_user_simple_info_by_code(code)
         if not open_id or not session_key:
-            return None, "", False
-
+            return None, ""
+        if not encrypted_data:
+            user, created = get_user_by_open_id_db(open_id)
+            return user, session_key
         # 解密用户详细信息
         user_info = cls.decrypt_mini_user_info(session_key, encrypted_data, iv)
         # {unionid, nickname, headimgurl}
         user_info = cls.convert_wx_mini_user_info_to_wx_user_info(user_info)
         if not user_info:
             # 可能是 session_key 已过期，无法解密
-            return None, "", False
+            return None, ""
 
         user_base_info = get_user_info_by_open_id_db(open_id)
         if user_base_info:
