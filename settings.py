@@ -44,7 +44,6 @@ OWN_APPS = [
     'footprint',
     'user_info',
     'weixin',
-    'log',
 ]
 
 INSTALLED_APPS += OWN_APPS
