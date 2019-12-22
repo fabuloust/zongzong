@@ -168,10 +168,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
 
         # 默认的服务器Log(保存到log/filelog.log中, 通过linux的logrotate来处理日志的分割
         'default': {
