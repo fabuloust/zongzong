@@ -8,7 +8,7 @@ import time
 
 from django.contrib.auth.models import AnonymousUser
 
-from log.loggers import elapsed_logger
+from logs.loggers import elapsed_logger
 
 __all__ = ["ElapsedTimeMiddleware"]
 
