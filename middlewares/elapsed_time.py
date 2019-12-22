@@ -7,6 +7,7 @@ from http import HTTPStatus
 import time
 
 from django.contrib.auth.models import AnonymousUser
+from django.utils.deprecation import MiddlewareMixin
 
 from logs.loggers import elapsed_logger
 
@@ -44,12 +45,13 @@ def get_ip_from_request(request):
     return ip
 
 
-class ElapsedTimeMiddleware(object):
+class ElapsedTimeMiddleware(MiddlewareMixin):
     """
     期待记录当前的callback, 并且在Elapsed Log中打印出 callback
     """
 
     def __init__(self, get_response=None):
+        super(ElapsedTimeMiddleware, self).__init__(get_response)
         self.pstart_time = time.time()
 
     def process_request(self, request):
