@@ -141,7 +141,7 @@ REDIS = {
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
 
-LOGS_BASE_DIR = '/root/workspace/zongzong/log/'
+LOGS_BASE_DIR = '/root/workspace/zongzong/logs/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
