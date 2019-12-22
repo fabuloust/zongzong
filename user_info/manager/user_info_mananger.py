@@ -14,7 +14,7 @@ def random_password():
 
 def get_or_create_user_db(username):
 
-    user, created = User.obects.get_or_create(username=username, defautls={'password': random_password()})
+    user, created = User.objects.get_or_create(username=username, defautls={'password': random_password()})
     return user, created
 
 
