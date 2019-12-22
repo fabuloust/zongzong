@@ -176,7 +176,7 @@ LOGGING = {
         # 默认的服务器Log(保存到log/filelog.log中, 通过linux的logrotate来处理日志的分割
         'default': {
             'level': 'INFO',
-            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'class': 'logs.handlers.custom_watched_file.CustomWatchedFileHandler',
             'filename': os.path.join(LOGS_BASE_DIR, 'filelog.log'),
             'formatter': 'verbose',
         },
@@ -184,14 +184,14 @@ LOGGING = {
         # 默认的服务器ERROR log
         'default_err': {
             'level': 'ERROR',
-            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'class': 'logs.handlers.custom_watched_file.CustomWatchedFileHandler',
             'filename': os.path.join(LOGS_BASE_DIR, 'error_logger.log'),
             'formatter': 'verbose',
         },
 
         'elapsed_hdl': {
             'level': 'INFO',
-            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'class': 'logs.handlers.custom_watched_file.CustomWatchedFileHandler',
             'filename': os.path.join(LOGS_BASE_DIR, 'elapsed_logger.log'),
             'formatter': 'verbose',
         },
