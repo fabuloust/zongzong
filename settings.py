@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for zongzong project.
 
@@ -9,7 +10,6 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-# -*- coding: utf-8 -*-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,6 +44,7 @@ OWN_APPS = [
     'footprint',
     'user_info',
     'weixin',
+    'log',
 ]
 
 INSTALLED_APPS += OWN_APPS
