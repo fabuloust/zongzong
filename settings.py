@@ -210,21 +210,13 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
-        'exception_logger': {
-            'handlers': ['exception_hdl'],
-            'level': 'INFO',
-            'propagate': False,
-        },
+
         'elapsed_logger': {
             'handlers': ['elapsed_hdl'],
             'level': 'INFO',
             'propagate': False,
         },
-        'http_requests': {
-            'handlers': ['http_requests_hdl'],
-            'level': 'INFO',
-            'propagate': False,
-        },
+
     },
     'root': {
         'level': 'INFO',
