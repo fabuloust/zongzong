@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.elapsed_time.ElapsedTimeMiddleware',
 ]
 
 ROOT_URLCONF = 'urls'
@@ -138,3 +139,94 @@ REDIS = {
 }
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
+
+LOGS_BASE_DIR = '/root/workspace/zongzong/log/'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(module)s.%(funcName)s Line:%(lineno)d  %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'raw': {
+            'format': '%(message)s'
+        },
+    },
+
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+
+        # 默认的服务器Log(保存到log/filelog.log中, 通过linux的logrotate来处理日志的分割
+        'default': {
+            'level': 'INFO',
+            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'filename': os.path.join(LOGS_BASE_DIR, 'filelog.log'),
+            'formatter': 'verbose',
+        },
+
+        # 默认的服务器ERROR log
+        'default_err': {
+            'level': 'ERROR',
+            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'filename': os.path.join(LOGS_BASE_DIR, 'error_logger.log'),
+            'formatter': 'verbose',
+        },
+
+        'elapsed_hdl': {
+            'level': 'INFO',
+            'class': 'log.handlers.custom_watched_file.CustomWatchedFileHandler',
+            'filename': os.path.join(LOGS_BASE_DIR, 'elapsed_logger.log'),
+            'formatter': 'verbose',
+        },
+
+    },
+
+    'loggers': {
+        # 默认都交给django了
+        'django': {
+            'handlers': ['default'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['default_err'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'exception_logger': {
+            'handlers': ['exception_hdl'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'elapsed_logger': {
+            'handlers': ['elapsed_hdl'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'http_requests': {
+            'handlers': ['http_requests_hdl'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['default'],
+    },
+}
