@@ -49,7 +49,7 @@ class ElapsedTimeMiddleware(object):
     期待记录当前的callback, 并且在Elapsed Log中打印出 callback
     """
 
-    def __init__(self):
+    def __init__(self, get_response=None):
         self.pstart_time = time.time()
 
     def process_request(self, request):

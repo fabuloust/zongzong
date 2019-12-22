@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middleware.elapsed_time.ElapsedTimeMiddleware',
+    'middlewares.elapsed_time.ElapsedTimeMiddleware',
 ]
 
 ROOT_URLCONF = 'urls'
@@ -128,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/root/workspace/zongzong/static/'
+STATIC_ROOT = BASE_DIR + '/zongzong/static/'
 
 REDIS = {
     'default': {
@@ -140,7 +140,7 @@ REDIS = {
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
 
-LOGS_BASE_DIR = '/root/workspace/zongzong/logs/'
+LOGS_BASE_DIR = BASE_DIR + '/zongzong/logs/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
