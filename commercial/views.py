@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_POST
 
 from commercial.manager.banner_manager import get_top_banner_db, build_top_banner
-from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, get_club_activities, \
+from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
     get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity
 from user_info.manager.user_info_mananger import get_user_info_db
 from utilities.request_utils import get_page_range
@@ -68,10 +68,6 @@ def get_club_activities_info_view(request):
     start_num, end_num = get_page_range(page)
     activities_info = get_club_activities_info(club_id, start_num, end_num)
     return json_http_success(activities_info)
-
-
-def get_activity_by_id_db(Ω):
-    pass
 
 
 @require_GET
