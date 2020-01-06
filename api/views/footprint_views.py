@@ -11,7 +11,7 @@ def get_user_brief_profile_view(request):
     获取用户小窗口简介
     1.用户个人资料
     2.用户最新一条票圈
-    URL[GET]: /api/user/brief_introduction/
+    URL[GET]: /api/get_brief_introduction/
     :param request: user_id
     """
     user_id = request.GET['user_id']

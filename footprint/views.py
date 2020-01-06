@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 
+from api.manager.positon_manager import add_user_location
 from footprint.manager.comment_manager import comment_footprint
 from footprint.manager.footprint_manager import create_footprint_db, add_favor_db, get_footprint_by_id_db
 from utilities.request_utils import get_data_from_request
@@ -48,18 +49,21 @@ def get_nearby_footprints_view(request):
 def post_footprint_view(request):
     """
     发布踪踪动态
+    URL[POST]: /footprint/create/
     :param request:
     :return:
     """
     post_data = get_data_from_request(request)
-    latitude = post_data['latitude']
-    longitude = post_data['longitude']
+    latitude = post_data.get('lat')
+    longitude = post_data.get('lon')
     place = post_data['place']
-    tag = post_data['tag']
-    thinking = post_data['thinking']
+    content = post_data['content']
     image_list_str = post_data['image_list']
+    hide = bool(post_data.get('hide', False))
 
-    create_footprint_db(request.user, thinking, tag, latitude, longitude, place, image_list_str)
+    footprint = create_footprint_db(request.user, content, latitude, longitude, place, image_list_str, hide)
+    if latitude and longitude:
+        add_user_location(footprint.id, longitude, latitude)
     return json_http_success()
 
 

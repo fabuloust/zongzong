@@ -10,7 +10,11 @@ def get_footprint_by_id_db(footprint_id):
         return None
 
 
-def create_footprint_db(user_id, thinking, tag, latitude, longitude, place, image_list_str):
+def get_footprints_by_ids_db(footprint_ids):
+    return Footprint.objects.filter(id__in=footprint_ids)
+
+
+def create_footprint_db(user_id, thinking, latitude, longitude, place, image_list_str, hide):
     """
     创建痕迹
     :param user_id:
@@ -23,9 +27,9 @@ def create_footprint_db(user_id, thinking, tag, latitude, longitude, place, imag
     :return: footprint
     """
     user_info = get_user_info_db(user_id)
-    footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex, tag=tag,
-                                         content=thinking, latitude=latitude, longitude=longitude, place=place,
-                                         image_list_str=image_list_str)
+    footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
+                                         content=thinking, lat=latitude, lon=longitude, place=place,
+                                         image_list_str=image_list_str, hide=hide)
     return footprint
 
 

@@ -24,4 +24,6 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('footprint/', include('footprint.urls')),
     path('weixin/', include('weixin.urls')),
+    path('commercial/', include('commercial.urls')),
+    path('user_info/', include('user_info.urls')),
 ]

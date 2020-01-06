@@ -16,9 +16,14 @@ from redis.sentinel import Sentinel
 
 from redis_utils.connection.custom_pool import create_block_redis_connection_pool
 from redis_utils.connection.custom_redis import CustomRedis
+from redis_utils.connection.fake_redis import CYFakerRedis
+from utilities.settings_utils import is_for_testcase
 
-BaseRedisClass = CustomRedis
-BaseSentinelClass = Sentinel
+if is_for_testcase():
+    BaseRedisClass = CYFakerRedis
+else:
+    BaseRedisClass = CustomRedis
+# BaseSentinelClass = Sentinel
 
 # 几个常用的redis client，暂时和medweb兼容
 DEFAULT_REDIS = "default"  # 默认缓存，用于缓存数据，互斥锁等

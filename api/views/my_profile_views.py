@@ -25,31 +25,6 @@ def get_my_profile_view(request):
     })
 
 
-@login_required
-def set_my_profile_view(request):
-    """
-    设置我的资料接口
-    URL[POST]: /api/user/set_profile/
-    :param request: nickname, birthday, sex, show_wechat_no
-    :return:
-    """
-    post_data = get_data_from_request(request)
-    nickname = post_data['nickname']
-    birthday = post_data['birthday']
-    sex = post_data['sex']
-    show_wechat_no = bool(int(post_data['show_wechat_no']))
-    user_info = update_my_profile_db(request.user, nickname, str_to_date(birthday), SexChoices.get_value_by_verbose(sex),
-                                     show_wechat_no)
-    return json_http_success() if user_info else json_http_error()
-
-
-@login_required
-def set_my_tags_view(request):
-    """
-    设置我展示出的tag
-    URL[POST]: /api/user/set_tag_list/
-    :param request:  tag_list: []
-    """
 
 
 @login_required
@@ -62,6 +37,8 @@ def get_tag_list_view(request):
     """
     user_id = request.GET.get('user_id')
     result = get_user_tag_list_db(user_id if user_id else request.user)
+    import logging
+    logging.info('test')
     return json_http_success({'tag_list': result})
 
 

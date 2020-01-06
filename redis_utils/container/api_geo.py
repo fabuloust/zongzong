@@ -30,7 +30,7 @@ class RedisGeo(object):
             raise DataError(u"一次最多添加500个！")
         return self.redis.geoadd(self.cache_key, *args)
 
-    def geo_distance(self, place1, place2, unit=GeoUnitEnum.M):
+    def geo_distance(self, place1, place2, unit=GeoUnitEnum.KM):
         """
         计算集合key中两个位置的距离，距离默认为米
         :param place1: place1 name
@@ -50,7 +50,7 @@ class RedisGeo(object):
         """
         return self.redis.geopos(self.cache_key, *places)
 
-    def get_members_within_radius(self, longitude, latitude, radius, unit=GeoUnitEnum.M,
+    def get_members_within_radius(self, longitude, latitude, radius, unit=GeoUnitEnum.KM,
                                   withdist=False, count=None, sort=None):
         """
         返回key集合中距离(longitude, latitude)的距离小于radius的单位
@@ -68,7 +68,7 @@ class RedisGeo(object):
         return self.redis.georadius(self.cache_key, longitude, latitude, radius, unit=unit,
                                     withdist=withdist, count=count, sort=sort)
 
-    def get_members_within_radius_by_member(self, member, radius, unit=GeoUnitEnum.M,
+    def get_members_within_radius_by_member(self, member, radius, unit=GeoUnitEnum.KM,
                                             withdist=False, count=None, sort=None):
         """
         与上一方法的区别是返回集合中地点名代替了经纬度

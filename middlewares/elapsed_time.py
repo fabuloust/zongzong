@@ -9,7 +9,7 @@ import time
 from django.contrib.auth.models import AnonymousUser
 from django.utils.deprecation import MiddlewareMixin
 
-from logs.loggers import elapsed_logger
+from log_utils.loggers import elapsed_logger
 
 __all__ = ["ElapsedTimeMiddleware"]
 

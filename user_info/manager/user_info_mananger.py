@@ -24,11 +24,12 @@ def get_user_info_db(user):
     :param user:
     :return:
     """
-    try:
-        user_info = UserBaseInfo.objects.get(user=user)
-        return user_info
-    except UserBaseInfo.DoesNotExist:
-        return None
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user.id)
+    return user_info
+
+
+def get_user_infos_by_user_ids_db(user_ids):
+    return UserBaseInfo.objects.get(user_id__in=user_ids)
 
 
 def get_user_tag_list_db(user):
@@ -57,7 +58,7 @@ def update_user_tag_list_db(user, tag_list_str):
     return user_info
 
 
-def update_my_profile_db(user, nickname, birthday, sex, show_wechat_no):
+def update_my_profile_db(user, sex, avatar, location, nickname, wechat_no, show_wechat_no, signature, birthday):
     """
     更新我的资料
     :param user:
@@ -68,10 +69,14 @@ def update_my_profile_db(user, nickname, birthday, sex, show_wechat_no):
     """
     user_info = get_user_info_db(user)
     if user_info:
-        user_info.nickname = nickname
-        user_info.birthday = birthday
         user_info.sex = sex
+        user_info.avatar = avatar
+        user_info.location = location
+        user_info.nickname = nickname
+        user_info.wechat_no = wechat_no
         user_info.show_wechat_no = show_wechat_no
+        user_info.signature = signature
+        user_info.birthday = birthday
         user_info.save()
     return user_info
 

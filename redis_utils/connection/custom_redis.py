@@ -1,16 +1,14 @@
 # -*- encoding:utf-8 -*-
 from __future__ import absolute_import
 
+import _pickle as pickle
 import os
-import pickle
 import threading
 import time
 import logging
-import redis as pyredis
-from redis.connection import Token
-from redis.exceptions import RedisError, DataError
 
-from redis_utils.container.consts import GeoUnitEnum, GeoSortEnum
+import redis as pyredis
+from redis.exceptions import RedisError
 
 
 class ConnectionProxy(object):
@@ -196,16 +194,21 @@ class CustomRedis(pyredis.StrictRedis):
         value = pickle.dumps(value, pickle.HIGHEST_PROTOCOL)
         self.lset(name, index, value)
 
+    # 下面这两个地方，由于咱们目前有对value进行pickle的需求，与原生无法保持一致。因此做下兼容
+    def zadd(self, name, *args):
+        score_map = {args[index]: args[index - 1] for index in range(len(args)) if index % 2}
+        return super(CustomRedis, self).zadd(name, score_map)
+
+    # Zset相关封装
     def zadd_pickle(self, key, *args):
         """
         增加新的成员
         其中args为：score, value, score, value的配对方式，调用者保证score在前面
         """
         # 因为index为偶数的值存储为score，为奇数的值存储value，需要对value进行序列化操作
-        # 例如: args = [100, {1:2}, 200, "test"]，下标0开始，需要对{1:2}， "test"序列化
-        serialized_args_list = [pickle.dumps(args[index], pickle.HIGHEST_PROTOCOL) if index % 2 else args[index]
-                                for index in range(len(args))]
-        self.zadd(key, *serialized_args_list)
+        # 例如: args = [100, {1:2}, 200, "test"]
+        score_map = {pickle.dumps(args[index]): args[index - 1] for index in range(len(args)) if index % 2}
+        return super(CustomRedis, self).zadd(key, score_map)
 
     def zrem_pickle(self, key, *values):
         """
@@ -220,11 +223,11 @@ class CustomRedis(pyredis.StrictRedis):
         """
         return self.zscore(key, pickle.dumps(value, pickle.HIGHEST_PROTOCOL))
 
-    def zincrby_pickle(self, key, value, amount):
+    def zincrby_pickle(self, key, amount, value):
         """
         给指定的value增加score
         """
-        self.zincrby(key, pickle.dumps(value), amount=amount)
+        self.zincrby(key, amount, pickle.dumps(value))
 
     def zrange_pickle(self, key, start, end):
         """
@@ -250,135 +253,46 @@ class CustomRedis(pyredis.StrictRedis):
         result = [pickle.loads(item) for item in result]
         return result
 
-    # GEO COMMANDS
-    def geoadd(self, name, *values):
+    def bf_reserve(self, key, error_rate, size):
         """
-        Add the specified geospatial items to the specified key identified
-        by the ``name`` argument. The Geospatial items are given as ordered
-        members of the ``values`` argument, each item or place is formed by
-        the triad longitude, latitude and name.
+        创建布隆过滤器
         """
-        if len(values) % 3 != 0:
-            raise DataError("GEOADD requires places with lon, lat and name"
-                            " values")
-        return self.execute_command('GEOADD', name, *values)
+        return self.execute_command('BF.RESERVE', key, error_rate, size)
 
-    def geodist(self, name, place1, place2, unit=None):
+    def bf_add(self, key, item):
         """
-        Return the distance between ``place1`` and ``place2`` members of the
-        ``name`` key.
-        The units must be one of the following : m, km mi, ft. By default
-        meters are used.
+        往布隆过滤器里添加元素
+        :return 1 if newly add else 0
         """
-        pieces = [name, place1, place2]
-        if unit and unit not in GeoUnitEnum.values():
-            raise DataError("GEODIST invalid unit")
-        elif unit:
-            pieces.append(unit)
-        return self.execute_command('GEODIST', *pieces)
+        return self.execute_command('BF.ADD', key, item)
 
-    def geohash(self, name, *values):
+    def bf_madd(self, key, *items):
         """
-        Return the geo hash string for each item of ``values`` members of
-        the specified key identified by the ``name`` argument.
+        添加多个元素
+        :return: [0, 1, 0, ....]
         """
-        return self.execute_command('GEOHASH', name, *values)
+        return self.execute_command('BF.MADD', key, *items)
 
-    def geopos(self, name, *values):
+    def bf_exists(self, key, item):
         """
-        Return the positions of each item of ``values`` as members of
-        the specified key identified by the ``name`` argument. Each position
-        is represented by the pairs lon and lat.
+        key中是否存在item
         """
-        return self.execute_command('GEOPOS', name, *values)
+        return self.execute_command('BF.EXISTS', key, item)
 
-    def georadius(self, name, longitude, latitude, radius, unit=None,
-                  withdist=False, withcoord=False, withhash=False, count=None,
-                  sort=None, store=None, store_dist=None):
+    def bf_mexists(self, key, *items):
         """
-        Return the members of the specified key identified by the
-        ``name`` argument which are within the borders of the area specified
-        with the ``latitude`` and ``longitude`` location and the maximum
-        distance from the center specified by the ``radius`` value.
-
-        The units must be one of the following : m, km mi, ft. By default
-
-        ``withdist`` indicates to return the distances of each place.
-
-        ``withcoord`` indicates to return the latitude and longitude of
-        each place.
-
-        ``withhash`` indicates to return the geohash string of each place.
-
-        ``count`` indicates to return the number of elements up to N.
-
-        ``sort`` indicates to return the places in a sorted way, ASC for
-        nearest to fairest and DESC for fairest to nearest.
-
-        ``store`` indicates to save the places names in a sorted set named
-        with a specific key, each element of the destination sorted set is
-        populated with the score got from the original geo sorted set.
-
-        ``store_dist`` indicates to save the places names in a sorted set
-        named with a specific key, instead of ``store`` the sorted set
-        destination score is set with the distance.
-        :return 如果不传多余参数 返回 [place1_name, place2_name, ....]
-        否则根据传的参数返回二维数组，子数组对应项分别为选择的项，例如with_dist=True
-        则会返回[[place1_name, place1_dist], [place2_name, place2_dist], ....]
+        key的容器中是否存在item对应的序列
         """
-        return self._georadiusgeneric('GEORADIUS',
-                                      name, longitude, latitude, radius,
-                                      unit=unit, withdist=withdist,
-                                      withcoord=withcoord, withhash=withhash,
-                                      count=count, sort=sort, store=store,
-                                      store_dist=store_dist)
+        return self.execute_command('BF.EXISTS', key, *items)
 
-    def georadiusbymember(self, name, member, radius, unit=None,
-                          withdist=False, withcoord=False, withhash=False,
-                          count=None, sort=None, store=None, store_dist=None):
+    def cl_throttle(self, key, max_burst, token_number, period, quantity=1):
         """
-        与上一个命令的却别在于，参数用位置名member代替了位置的经纬度
+        创建令牌桶
+        :param key:
+        :param max_burst: 桶的最大容量
+        :param token_number: period时间内可产生的token数
+        :param period: 如上所示，单位为秒
+        :param quantity: 取令牌的数量
+        :return: success, max_burst + 1， token_num_left, seconds_when_available, sencods_when_full
         """
-        return self._georadiusgeneric('GEORADIUSBYMEMBER',
-                                      name, member, radius, unit=unit,
-                                      withdist=withdist, withcoord=withcoord,
-                                      withhash=withhash, count=count,
-                                      sort=sort, store=store,
-                                      store_dist=store_dist)
-
-    def _georadiusgeneric(self, command, *args, **kwargs):
-        pieces = list(args)
-        if kwargs['unit'] and kwargs['unit'] not in GeoUnitEnum.values():
-            raise DataError("GEORADIUS invalid unit")
-        elif kwargs['unit']:
-            pieces.append(kwargs['unit'])
-        else:
-            pieces.append(GeoUnitEnum.M, )
-
-        for token in ('withdist', 'withcoord', 'withhash'):
-            if kwargs[token]:
-                pieces.append(Token(token.upper()))
-
-        if kwargs['count']:
-            pieces.extend([Token('COUNT'), kwargs['count']])
-
-        if kwargs['sort'] and kwargs['sort'] not in GeoSortEnum.values():
-            raise DataError("GEORADIUS invalid sort")
-        elif kwargs['sort']:
-            pieces.append(Token(kwargs['sort']))
-
-        if kwargs['store'] and kwargs['store_dist']:
-            raise DataError("GEORADIUS store and store_dist cant be set"
-                            " together")
-
-        if kwargs['store']:
-            pieces.extend([Token('STORE'), kwargs['store']])
-
-        if kwargs['store_dist']:
-            pieces.extend([Token('STOREDIST'), kwargs['store_dist']])
-
-        return self.execute_command(command, *pieces, **kwargs)
-
-
-class EmptyCustomRedis(CustomRedis):
-    pass
+        return self.execute_command('CL.THROTTLE', key, max_burst, token_number, period, quantity)
