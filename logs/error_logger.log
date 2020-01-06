@@ -1,0 +1,861 @@
+2019-12-22 15:03:49,529 ERROR log.log_response Line:228  Internal Server Error: /api/user/profile/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+TypeError: 'ElapsedTimeMiddleware' object is not callable
+2020-01-05 13:44:44,228 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 510, in connect
+    sock = self._connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 567, in _connect
+    raise err
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 555, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(distance))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 69, in get_members_within_radius
+    withdist=withdist, count=count, sort=sort)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2938, in georadius
+    store_dist=store_dist)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2993, in _georadiusgeneric
+    return self.execute_command(command, *pieces, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 110, in execute_command
+    return super(CustomRedis, self).execute_command(*args, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 836, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 78, in get_connection
+    connection = self._proxy_pool.get_connection(command_name, *keys, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 1194, in get_connection
+    connection.connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 515, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+2020-01-05 13:45:44,141 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 510, in connect
+    sock = self._connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 567, in _connect
+    raise err
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 555, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(distance))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 69, in get_members_within_radius
+    withdist=withdist, count=count, sort=sort)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2938, in georadius
+    store_dist=store_dist)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2993, in _georadiusgeneric
+    return self.execute_command(command, *pieces, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 110, in execute_command
+    return super(CustomRedis, self).execute_command(*args, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 836, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 78, in get_connection
+    connection = self._proxy_pool.get_connection(command_name, *keys, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 1194, in get_connection
+    connection.connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 515, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+2020-01-05 13:46:27,325 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 510, in connect
+    sock = self._connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 567, in _connect
+    raise err
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 555, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(distance))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 69, in get_members_within_radius
+    withdist=withdist, count=count, sort=sort)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2938, in georadius
+    store_dist=store_dist)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2993, in _georadiusgeneric
+    return self.execute_command(command, *pieces, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 110, in execute_command
+    return super(CustomRedis, self).execute_command(*args, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 836, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 78, in get_connection
+    connection = self._proxy_pool.get_connection(command_name, *keys, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 1194, in get_connection
+    connection.connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 515, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+2020-01-05 13:47:25,803 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 510, in connect
+    sock = self._connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 567, in _connect
+    raise err
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 555, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(distance))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 69, in get_members_within_radius
+    withdist=withdist, count=count, sort=sort)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2938, in georadius
+    store_dist=store_dist)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2993, in _georadiusgeneric
+    return self.execute_command(command, *pieces, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 110, in execute_command
+    return super(CustomRedis, self).execute_command(*args, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 836, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/custom_redis.py", line 78, in get_connection
+    connection = self._proxy_pool.get_connection(command_name, *keys, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 1194, in get_connection
+    connection.connect()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/connection.py", line 515, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 61 connecting to 127.0.0.1:6379. Connection refused.
+2020-01-05 13:47:33,402 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(distance))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 52, in get_nearby_activity
+    activity_id_2_position = {footprint_id: location for footprint_id, location in zip(activity_location_container, positions)}
+TypeError: zip argument #1 must support iteration
+2020-01-05 13:55:36,002 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 43, in get_nearby_activity
+    footprints = get_footprints_by_ids_db([int(item) for item in user_locations])
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 43, in <listcomp>
+    footprints = get_footprints_by_ids_db([int(item) for item in user_locations])
+ValueError: invalid literal for int() with base 10: b'user_1'
+2020-01-05 13:57:14,512 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in get_nearby_activity
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in <listcomp>
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 10, in build_footprint_info
+    'time': time_format(footprint.created_time),
+  File "/Users/huxiaotian/zongzong/zongzong/utilities/date_time.py", line 234, in time_format
+    delta = now - t
+TypeError: can't subtract offset-naive and offset-aware datetimes
+2020-01-05 21:59:40,100 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in get_nearby_activity
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in <listcomp>
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 10, in build_footprint_info
+    'time': time_format(footprint.created_time),
+  File "/Users/huxiaotian/zongzong/zongzong/utilities/date_time.py", line 234, in time_format
+    delta = now - t
+TypeError: can't subtract offset-naive and offset-aware datetimes
+2020-01-05 22:01:58,982 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in get_nearby_activity
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 47, in <listcomp>
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 14, in build_footprint_info
+    'lat': position[1],
+TypeError: 'NoneType' object is not subscriptable
+2020-01-05 22:03:12,571 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 58, in get_nearby_activity
+    for activity in activities]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 58, in <listcomp>
+    for activity in activities]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 26, in build_activity_info
+    'lat': position[1],
+TypeError: 'NoneType' object is not subscriptable
+2020-01-05 22:04:08,898 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 67, in get_members_within_radius
+    print(self.redis.get(self.cache_key))
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 1332, in get
+    return self.execute_command('GET', name)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 839, in execute_command
+    return self.parse_response(conn, command_name, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 853, in parse_response
+    response = connection.read_response()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 2565, in read_response
+    raise response
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 704, in _run_command
+    ret = sig.apply(args, self._db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 585, in apply
+    raise redis.ResponseError(WRONGTYPE_MSG)
+redis.exceptions.ResponseError: WRONGTYPE Operation against a key holding the wrong kind of value
+2020-01-05 22:04:36,537 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 67, in get_members_within_radius
+    print(self.redis.zcard(self.cache_key))
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2395, in zcard
+    return self.execute_command('ZCARD', name)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 839, in execute_command
+    return self.parse_response(conn, command_name, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 853, in parse_response
+    response = connection.read_response()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 2565, in read_response
+    raise response
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 704, in _run_command
+    ret = sig.apply(args, self._db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 585, in apply
+    raise redis.ResponseError(WRONGTYPE_MSG)
+redis.exceptions.ResponseError: WRONGTYPE Operation against a key holding the wrong kind of value
+2020-01-05 22:07:14,447 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 67, in get_members_within_radius
+    print(self.redis.zcard(self.cache_key))
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 2395, in zcard
+    return self.execute_command('ZCARD', name)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 839, in execute_command
+    return self.parse_response(conn, command_name, **options)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/redis/client.py", line 853, in parse_response
+    response = connection.read_response()
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 2565, in read_response
+    raise response
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 704, in _run_command
+    ret = sig.apply(args, self._db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/fakeredis/_server.py", line 585, in apply
+    raise redis.ResponseError(WRONGTYPE_MSG)
+redis.exceptions.ResponseError: WRONGTYPE Operation against a key holding the wrong kind of value
+2020-01-05 22:07:34,287 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 48, in get_nearby_activity
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 48, in <listcomp>
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 14, in build_footprint_info
+    'lat': position[1],
+TypeError: 'NoneType' object is not subscriptable
+2020-01-05 22:08:28,196 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 49, in get_nearby_activity
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 49, in <listcomp>
+    for footprint in footprints]
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 14, in build_footprint_info
+    'lat': position[1],
+TypeError: 'NoneType' object is not subscriptable
+2020-01-05 22:35:06,728 ERROR log.log_response Line:228  Internal Server Error: /footprint/create/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'place'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 59, in post_footprint_view
+    place = post_data['place']
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 80, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'place'
+2020-01-05 22:36:07,026 ERROR log.log_response Line:228  Internal Server Error: /api/get_nearby_activities/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/api/view.py", line 32, in get_nearby_activities_view
+    result = get_nearby_activity(float(lon), float(lat), float(radius))
+  File "/Users/huxiaotian/zongzong/zongzong/api/manager/view_manager.py", line 40, in get_nearby_activity
+    user_locations = user_location_container.get_members_within_radius(lon, lat, radius)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/container/api_geo.py", line 69, in get_members_within_radius
+    withdist=withdist, count=count, sort=sort)
+  File "/Users/huxiaotian/zongzong/zongzong/redis_utils/connection/fake_redis.py", line 334, in georadius
+    dist = geodesic((latitude, longitude), (lat, lon))
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/distance.py", line 389, in __init__
+    super(geodesic, self).__init__(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/distance.py", line 164, in __init__
+    kilometers += self.measure(a, b)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/distance.py", line 410, in measure
+    a, b = Point(a), Point(b)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/point.py", line 165, in __new__
+    return cls.from_sequence(seq)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/point.py", line 405, in from_sequence
+    return cls(*args)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/point.py", line 178, in __new__
+    _normalize_coordinates(latitude, longitude, altitude)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/geopy/point.py", line 76, in _normalize_coordinates
+    raise ValueError('Latitude must be in the [-90; 90] range.')
+ValueError: Latitude must be in the [-90; 90] range.
+2020-01-06 00:06:00,866 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 28, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user=user)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-06 00:07:13,772 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 30, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user=user)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-06 00:10:18,676 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 30, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user=user)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-06 00:11:52,848 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 30, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user=user)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 542, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 576, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1187, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-06 00:13:10,203 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 30, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user=user)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-06 00:14:41,752 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 30, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 70, in update_my_profile_db
+    user_info = get_user_info_db(user)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 27, in get_user_info_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user.id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
