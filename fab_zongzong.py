@@ -97,7 +97,7 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
         # current_step_num += 1
         # print_step_info(steps_num, current_step_num, "更新settings")
         run('source ../ENV/bin/activate')
-        run('pip install -r requirements.txt')
+        # run('pip install -r requirements.txt')
 
         # 6.处理静态文件
         _test_do_rename_static_files()  # 重命名静态文件及html内的相关引用，解决又拍云缓存不更新问题
