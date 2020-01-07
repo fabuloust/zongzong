@@ -1,5 +1,4 @@
 from commercial.models import CommercialActivity, Club, ActivityParticipant
-from commercial.views import get_activity_by_id_db
 
 
 def get_commercial_activity_by_id_db(activity_id):
@@ -95,7 +94,7 @@ def build_activity_detail(activity):
 
 
 def participate_activity(activity_id, user_info_id):
-    activity = get_activity_by_id_db(activity_id)
+    activity = get_commercial_activity_by_id_db(activity_id)
     if activity.participant_num >= activity.total_quota:
         return '人数已满'
     record, created = create_activity_participate_record_db(activity_id, user_info_id)
