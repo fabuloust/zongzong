@@ -1,11 +1,9 @@
 from django.contrib.auth.decorators import login_required
 
 from user_info.consts import SexChoices
-from user_info.manager.user_info_mananger import get_user_info_db, update_my_profile_db, get_user_tag_list_db, \
-    update_user_tag_list_db
-from utilities.date_time import date_to_str, FORMAT_DATE, str_to_date
-from utilities.request_utils import get_data_from_request
-from utilities.response import json_http_success, json_http_error
+from user_info.manager.user_info_mananger import get_user_info_db
+from utilities.date_time import date_to_str, FORMAT_DATE
+from utilities.response import json_http_success
 
 
 @login_required
@@ -16,43 +14,10 @@ def get_my_profile_view(request):
     """
     user_info = get_user_info_db(request.user)
     return json_http_success({
-        'image': user_info.image,
+        'avatar': user_info.avatar,
         'nickname': user_info.nickname,
         'birthday': date_to_str(user_info.birthday, FORMAT_DATE),
         'sex': SexChoices.verbose(user_info.sex),
         'wechat_no': '',
         'signature': user_info.signature,
     })
-
-
-
-
-@login_required
-def get_tag_list_view(request):
-    """
-    URL[GET]: /api/user/tag_list/
-    :param request: user_id or None
-    :return: {'tag_list': list}
-    如果传user_id则是获取别人的tag，否则为自己的
-    """
-    user_id = request.GET.get('user_id')
-    result = get_user_tag_list_db(user_id if user_id else request.user)
-    import logging
-    logging.info('test')
-    return json_http_success({'tag_list': result})
-
-
-@login_required
-def set_tag_list_view(request):
-    """
-    URL[GET]: /api/user/tag_list/
-    :param request: user_id or None
-    :return: {'tag_list': list}
-    如果传user_id则是获取别人的tag，否则为自己的
-    """
-    post_data = get_data_from_request(request)
-    tag_list_str = post_data['tag_list']
-    if not isinstance(tag_list_str, str):
-        return json_http_error('tag list must be a json list')
-    update_user_tag_list_db(request.user, tag_list_str)
-    return json_http_success()

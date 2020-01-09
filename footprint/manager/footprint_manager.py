@@ -1,5 +1,6 @@
-from footprint.models import Footprint, FootprintFavor
+from footprint.models import Footprint, FootprintFavor, TotalFlow, FlowType, Comment
 from user_info.manager.user_info_mananger import get_user_info_db
+from utilities.date_time import datetime_to_str
 from utilities.time_utils import get_time_show
 
 
@@ -14,21 +15,20 @@ def get_footprints_by_ids_db(footprint_ids):
     return Footprint.objects.filter(id__in=footprint_ids)
 
 
-def create_footprint_db(user_id, thinking, latitude, longitude, place, image_list_str, hide):
+def create_footprint_db(user_id, thinking, latitude, longitude, location, image_list_str, hide):
     """
     创建痕迹
     :param user_id:
     :param thinking:
-    :param tag: 标签
     :param latitude: 纬度
     :param longitude: 经度
-    :param place: 地点名
+    :param location: 地点名
     :param image_list_str: json list
     :return: footprint
     """
     user_info = get_user_info_db(user_id)
     footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
-                                         content=thinking, lat=latitude, lon=longitude, place=place,
+                                         content=thinking, lat=latitude, lon=longitude, location=location,
                                          image_list_str=image_list_str, hide=hide)
     return footprint
 
@@ -62,6 +62,19 @@ def add_favor_db(footprint_id, user):
     return favor_num
 
 
+def get_footprint_comment_list(footprint_id, start, end):
+    return Comment.objects.filter(flow_id=footprint_id, flow_type=FlowType.FOOTPRINT,
+                                  is_deleted=False).order_by('-created_time')[start: end]
+
+
+def add_to_flow(flow_id, flow_type):
+    return TotalFlow.objects.create(flow_id=flow_id, flow_type=flow_type)
+
+
+def get_flows_db(start_num, end_num):
+    return TotalFlow.objects.order_by('-created_time')[start_num: end_num]
+
+
 def build_user_footprint(footprint):
     """
     构建用户足迹
@@ -69,7 +82,7 @@ def build_user_footprint(footprint):
     :return: {
         content,
         time,
-        place,
+        location,
         distance,
         image_list,
         favor_num,
@@ -78,9 +91,11 @@ def build_user_footprint(footprint):
     }
     """
     return {
+        'id': footprint.id,
+        'avatar': footprint.avatar,
         'content': footprint.content,
         'show_time': get_time_show(footprint.created_time),
-        'place': footprint.place,
+        'location': footprint.location,
         'latitude': footprint.latitude,
         'longitude': footprint.longitude,
         'distance': 0,
@@ -91,40 +106,54 @@ def build_user_footprint(footprint):
     }
 
 
-# def build_footprint_detail(footprint, request_user):
-#     """
-#     展示的痕迹详情，包括
-#     1、用户头像、用户名、时间、距离自己，是否关注
-#     2. footprint详情
-#     3.评论（总数）： 各个评论及点赞数
-#     :param footprint:
-#     :param request_user: 查看的用户
-#     :return: {
-#         'followed': True or False,
-#         'user_info': {
-#             'image', 'show_time', 'latitude', 'longitude', 'place',
-#         }
-#         'footprint': {
-#             'content', image_list, favor_num, reply_num, forward_num, show_time
-#         }
-#         'comment_num',
-#         comment_list: [
-#             {image, nickname, show_time, distance, favor_num, user_id},
-#         ]
-#     }
-#     """
-#     user_info = get_user_info_db(footprint.user)
-#     user_info_data = {
-#         'image': user_info.image,
-#         'nickname': user_info.nickname,
-#         'place': footprint.place,
-#     }
-#     foot_print_data = {
-#         'content': footprint.content,
-#         'image_list': footprint.image_list_str,
-#         'favor_num': footprint.favor_num,
-#         'reply_num': footprint.comment_num,
-#         'forward_num': footprint.forward_num,
-#         'show_time': get_time_show(footprint.created_time)
-#     }
-#     comment_list =
+def build_comment(comment):
+    return {
+        'avatar': comment.avatar,
+        'name': comment.name,
+        'created_time': datetime_to_str(comment.created_time),
+        'content': comment.content,
+        'user_id': comment.user_id
+    }
+
+
+def build_footprint_detail(footprint):
+    """
+    展示的痕迹详情，包括
+    1、用户头像、用户名、时间、距离自己，是否关注
+    2. footprint详情
+    3.评论（总数）： 各个评论及点赞数
+    :param footprint:
+    :return: {
+        'followed': True or False,
+        'user_info': {
+            'image', 'show_time', 'latitude', 'longitude', 'place',
+        }
+        'footprint': {
+            'content', image_list, favor_num, reply_num, forward_num, show_time
+        }
+        'comment_num',
+        comment_list: [
+            {image, nickname, show_time, distance, favor_num, user_id},
+        ]
+    }
+    """
+    user_info = get_user_info_db(footprint.user)
+    user_info_data = {
+        'avatar': user_info.image,
+        'nickname': user_info.nickname,
+    }
+    foot_print_data = {
+        'location': footprint.location,
+        'content': footprint.content,
+        'image_list': footprint.image_list_str,
+        'favor_num': footprint.favor_num,
+        'reply_num': footprint.comment_num,
+        'forward_num': footprint.forward_num,
+        'show_time': get_time_show(footprint.created_time)
+    }
+    comment_list = get_footprint_comment_list(footprint.id, 0, 20)
+    comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
+    result = user_info_data
+    result.update(foot_print_data)
+    result.update(comment_data)
+    return result

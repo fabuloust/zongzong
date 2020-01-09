@@ -3,8 +3,23 @@ import json
 from django.contrib.auth.models import User
 from django.db import models
 
-from footprint.consts import CommentStatusChoices
 from user_info.consts import SexChoices
+from utilities.enum import EnumBase, EnumItem
+
+
+class FlowType(EnumBase):
+    ACTIVITY = EnumItem(0, '商业活动')
+    FOOTPRINT = EnumItem(1, '足迹')
+
+
+class TotalFlow(models.Model):
+    """
+    footprint和activity的合集
+    """
+    flow_id = models.PositiveIntegerField(verbose_name='footprint or commercial_activity id')
+    flow_type = models.SmallIntegerField(choices=FlowType)
+    created_time = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
 
 class Footprint(models.Model):
@@ -13,12 +28,11 @@ class Footprint(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=20, verbose_name=u'姓名')
-    image = models.CharField(max_length=100, verbose_name=u'头像')
+    avatar = models.CharField(max_length=100, verbose_name=u'头像')
     sex = models.CharField(choices=SexChoices, verbose_name=u'性别', max_length=10)
-    # tag = models.CharField(max_length=20, verbose_name=u'标签')
     lat = models.CharField(max_length=20, verbose_name=u'维度', null=True, blank=True)
     lon = models.CharField(max_length=20, verbose_name=u'经度', null=True, blank=True)
-    place = models.CharField(max_length=50, verbose_name=u'地点')
+    location = models.CharField(max_length=50, verbose_name=u'地点')
     content = models.CharField(max_length=200, verbose_name=u'痕迹内容')
     image_list_str = models.TextField(verbose_name=u'图片列表json')
     favor_num = models.PositiveIntegerField(default=0, verbose_name=u'点赞数')
@@ -36,22 +50,28 @@ class Footprint(models.Model):
     def image_list(self, image_list):
         self.image_list_str = json.dumps(image_list)
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        created = not self.id
+        super(Footprint, self).save(force_insert, force_update, using, update_fields)
+        if created:
+            from footprint.manager.footprint_manager import add_to_flow
+            add_to_flow(self.id, FlowType.FOOTPRINT)
 
-class FootprintComment(models.Model):
+
+class Comment(models.Model):
     """
-    痕迹评论
+    痕迹或活动的评论
     """
-    footprint = models.ForeignKey(Footprint, on_delete=models.SET_NULL, null=True)
+    flow_id = models.PositiveIntegerField(verbose_name='footprint or commercial_activity id')
+    flow_type = models.SmallIntegerField(choices=FlowType)
+    user_id = models.IntegerField(verbose_name=u'评论者user_id')
+    name = models.CharField(max_length=50, default='', blank=True, null=True, help_text='评论者昵称')
+    avatar = models.CharField(max_length=255, default='', blank=True, null=True, help_text='评论者头像')
     comment = models.TextField(verbose_name=u'评论内容')
     image_list = models.CharField(max_length=1000, default='[]', help_text=u'评论附带图片')
 
-    status = models.CharField(max_length=1, choices=CommentStatusChoices, default=CommentStatusChoices.NORMAL)
-
-    nick_name = models.CharField(max_length=50, default='', blank=True, null=True, help_text='评论者昵称')
-    portrait = models.CharField(max_length=255, default='', blank=True, null=True, help_text='评论者头像')
-    distance = models.IntegerField(default=0, verbose_name=u'距离话题主多远，创建的时候根据定位计算')
-
-    reference_comment = models.ForeignKey("FootprintComment", null=True, blank=True, on_delete=models.SET_NULL)
+    is_deleted = models.BooleanField(default=False)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     last_modified = models.DateTimeField(auto_now=True)
 
@@ -77,4 +97,3 @@ class FootprintCommentFavor(models.Model):
     favored = models.BooleanField(verbose_name=u'是否点赞', default=True)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     last_modified = models.DateTimeField(auto_now=True)
-

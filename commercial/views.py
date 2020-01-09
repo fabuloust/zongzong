@@ -14,7 +14,7 @@ def get_top_banner_view(request):
     """
     获取顶部banner广告信息
     :return: {
-        title, image,  activity_id,
+        title, avatar,  activity_id,
     }
     """
     banner = get_top_banner_db()
@@ -31,14 +31,14 @@ def get_club_info_view(request):
     :param request:
     :return: {
         club_info: {
-            id, name, image, address,
+            id, name, avatar, address,
         }
         activities_info: [
             {
                 activity_id, distance, title, created_time, activity_time, images_list,
                 total_quota, participants: [
                     {
-                        user_id, image
+                        user_id, avatar
                     },
                 ]
             },
@@ -89,7 +89,7 @@ def activity_detail_view(request):
         time_detail,
         description,
         total_quota,
-        participants: [{user_id, image}]
+        participants: [{user_id, avatar}]
     }
     """
     activity_id = request.GET['activity_id']

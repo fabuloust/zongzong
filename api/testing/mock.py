@@ -13,9 +13,7 @@ from utilities.string_utils import random_str
 def create_user_info(user):
 
     user_info = UserBaseInfo.objects.create(user=user, nickname=random_str(), signature=random_str(),
-                                            sex=SexChoices.MALE, birthday=datetime.date(1989, 11, 25),
-                                            tags=FootprintChoices.values(),
-                                            current_tag=FootprintChoices.HELP)
+                                            sex=SexChoices.MALE, birthday=datetime.date(1989, 11, 25))
     return user_info
 
 
@@ -26,7 +24,7 @@ def create_footprint(user_info):
     lon = 116 + 0.1 * random.randint(1, 8)
     lat = 40 + 0.1 * random.randint(1, 8)
     footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
-                                         lat=lat, lon=lon, place=random_str(random.randint(1, 8)),
+                                         lat=lat, lon=lon, location=random_str(random.randint(1, 8)),
                                          content=random_str(20), image_list_str=json.dumps(image_list),
                                          forward_num=random.randint(1, 100), favor_num=random.randint(1, 100),
                                          comment_num=random.randint(1, 100))

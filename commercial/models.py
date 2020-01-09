@@ -41,6 +41,15 @@ class CommercialActivity(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        created = not self.id
+        super(CommercialActivity, self).save(force_insert, force_update, using, update_fields)
+        if created:
+            from footprint.models import FlowType
+            from footprint.manager.footprint_manager import add_to_flow
+            add_to_flow(self.id, FlowType.ACTIVITY)
+
 
 class ActivityParticipant(models.Model):
     # 活动参加者

@@ -39,11 +39,11 @@ class TestFootprint(TestCase):
         image_list_str = json.dumps(['image1', 'image2', 'image3'])
         result = client.json_post('/api/footprint/create/',
                                   data={'thinking': u'真他妈操蛋啊！', 'image_list': image_list_str,
-                                        'tag': FootprintChoices.HELP, 'latitude': random.randint(0, 90),
-                                        'longitude': random.randint(0, 180), 'place': 'heaven'})
+                                        'latitude': random.randint(0, 90),
+                                        'longitude': random.randint(0, 180), 'location': 'heaven'})
         self.assertEqual(result['error_code'], 0)
         footprint = Footprint.objects.get(user_id=user.id)
-        self.assertEqual(footprint.place, 'heaven')
+        self.assertEqual(footprint.location, 'heaven')
 
 
 
