@@ -11,7 +11,8 @@ def random_password():
 
 
 def get_or_create_user_db(username):
-    user, created = User.objects.get_or_create(username=username, password=username)
+
+    user, created = User.objects.get_or_create(username=username, defaults={'password': random_password()})
     return user, created
 
 
