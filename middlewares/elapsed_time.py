@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 
+import json
 from http import HTTPStatus
 
 import time
@@ -22,7 +23,14 @@ def build_request_items(request):
         get_items.append('%s=%s' % (key, value))
 
     post_items = []
-    for key, value in request.POST.items():
+    if request.META.get('CONTENT_TYPE') == 'application/json':
+        try:
+            post_data = json.loads(request.body)
+        except:
+            raise Exception(request.body)
+    else:
+        post_data = request.POST
+    for key, value in post_data.items():
         if 'password' in key and value:
             continue
         # 因为日志太大，过滤steps_data和sleep_raw_data value的存储，健康助手工程接口：upload_steps_data，upload_sleep_raw_data
