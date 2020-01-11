@@ -1,4 +1,4 @@
-/logs/*
+logs/*
 /.idea
 /.project
 *.pyc
@@ -73,4 +73,4 @@ templates/sitemap/
 /dist
 *.egg-info/
 local
-*.log
+
