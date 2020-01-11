@@ -2,58 +2,56 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 
-from commercial.manager.banner_manager import get_top_banner_db, build_top_banner
+from chat.manager.chat_manager import get_conversation_id_by_user_ids, create_chat_record_db
+from chat.manager.message_manager import ConversationMessageManager
 from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
     get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
-from utilities.request_utils import get_page_range
+from utilities.request_utils import get_page_range, get_data_from_request
 from utilities.response import json_http_success, json_http_error
 
 
 @require_GET
-def get_top_banner_view(request):
-    """
-    获取顶部banner广告信息
-    :return: {
-        title, avatar,  activity_id,
-    }
-    """
-    banner = get_top_banner_db()
-    result = {} if not banner else build_top_banner(banner)
-    return json_http_success(result)
-
-
-@require_GET
 @login_required
-def get_club_info_view(request):
+def get_my_conversation_list_view(request):
     """
-    获取俱乐部信息
-    URL[GET]: /commercial/get_club_info/
-    :param request:
+    获取我的对话列表
+    URL[GET]: /chat/conversation_list/
     :return: {
-        club_info: {
-            id, name, avatar, address,
-        }
-        activities_info: [
+        "conversation_list": [
             {
-                activity_id, distance, title, created_time, activity_time, images_list,
-                total_quota, participants: [
-                    {
-                        user_id, avatar
-                    },
-                ]
-            },
-
+                "avatar": "",
+                "last_message": "",
+                "has_new": "",
+                "username": "",
+                "conversation_id": ""
+            }
         ]
-
     }
     """
-    club_id = int(request.GET['club_id'])
-    club = get_club_by_id_db(club_id)
-    if not club:
-        return json_http_error('id错误')
-    club_info = build_club_info(club)
-    return json_http_success(club_info)
+    my_conversation_info_list = ConversationMessageManager.get_all_message_list(request.user.id)
+    return json_http_success({'conversation_list': my_conversation_info_list})
+
+
+@csrf_exempt
+@require_POST
+@login_required
+def post_content(request):
+    """
+    发送信息
+    URL[POST]: /chat/post_content/
+    :param request: conversation_id， content_type， content
+    """
+    data = get_data_from_request(request)
+    receiver_id = int(data.get('receiver_id'))
+    conversation_id = data.get('conversation_id')
+    if not receiver_id and not  conversation_id:
+        return json_http_error('参数错误')
+    conversation_id = conversation_id or get_conversation_id_by_user_ids([receiver_id, request.user.id])
+    content = data['content_json']
+    chat_record = create_chat_record_db(conversation_id, content, request.user.id)
+    # 发推送、更新badge、
+    return json_http_success()
 
 
 @require_GET
@@ -101,7 +99,6 @@ def activity_detail_view(request):
     return json_http_success(result)
 
 
-@csrf_exempt
 @require_POST
 @login_required
 def participate_activity_view(request):

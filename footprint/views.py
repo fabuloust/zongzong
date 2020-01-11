@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from api.manager.positon_manager import add_user_location
 from footprint.manager.comment_manager import create_comment_db
@@ -22,6 +23,7 @@ def add_favor_view(request):
     return json_http_success({'favor_num': favor_num})
 
 
+@csrf_exempt
 @login_required
 def comment_footprint_view(request):
     """
@@ -37,6 +39,7 @@ def comment_footprint_view(request):
     return json_http_success() if success else json_http_error()
 
 
+@csrf_exempt
 @login_required
 def post_footprint_view(request):
     """

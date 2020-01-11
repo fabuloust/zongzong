@@ -1,5 +1,5 @@
 from footprint.models import Footprint, FootprintFavor, TotalFlow, FlowType, Comment
-from user_info.manager.user_info_mananger import get_user_info_db
+from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.date_time import datetime_to_str
 from utilities.time_utils import get_time_show
 
@@ -26,7 +26,7 @@ def create_footprint_db(user_id, thinking, latitude, longitude, location, image_
     :param image_list_str: json list
     :return: footprint
     """
-    user_info = get_user_info_db(user_id)
+    user_info = get_user_info_by_user_id_db(user_id)
     footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
                                          content=thinking, lat=latitude, lon=longitude, location=location,
                                          image_list_str=image_list_str, hide=hide)
@@ -137,7 +137,7 @@ def build_footprint_detail(footprint):
         ]
     }
     """
-    user_info = get_user_info_db(footprint.user)
+    user_info = get_user_info_by_user_id_db(footprint.user_id)
     user_info_data = {
         'avatar': user_info.image,
         'nickname': user_info.nickname,

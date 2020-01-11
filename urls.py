@@ -26,4 +26,5 @@ urlpatterns = [
     path('weixin/', include('weixin.urls')),
     path('commercial/', include('commercial.urls')),
     path('user_info/', include('user_info.urls')),
+    path('chat/', include('chat.urls')),
 ]

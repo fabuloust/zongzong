@@ -16,7 +16,7 @@ def get_or_create_user_db(username):
     return user, created
 
 
-def get_user_info_db(user):
+def get_user_info_by_user_id_db(user):
     """
     获取用户小窗页信息
     :param user:
@@ -39,7 +39,7 @@ def update_my_profile_db(user, sex, avatar, location, nickname, wechat_no, show_
     :param sex:
     :param show_wechat_no:
     """
-    user_info = get_user_info_db(user)
+    user_info = get_user_info_by_user_id_db(user.id)
     if sex:
         user_info.sex = sex
     if avatar:
@@ -66,7 +66,7 @@ def get_user_brief_profile(user):
     :param user:
     :return:
     """
-    user_info = get_user_info_db(user)
+    user_info = get_user_info_by_user_id_db(user.id)
     return {
         'avatar': user_info.avatar,
         'nickname': user_info.nickname,

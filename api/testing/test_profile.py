@@ -6,7 +6,7 @@ from django.test import TestCase
 from api.testing import mock
 from footprint.consts import FootprintChoices
 from user_info.consts import SexChoices
-from user_info.manager.user_info_mananger import get_user_info_db
+from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.mock_utility.helper import create_user_login_client
 
 
@@ -30,7 +30,7 @@ class TestMyProfile(TestCase):
         result = client.json_post('/api/user/set_profile/', {'nickname': 'snow', 'birthday': '1989-11-25', 'sex': '女',
                                                              'show_wechat_no': 1})
         self.assertTrue(result['error_code'] == 0)
-        user_info = get_user_info_db(user)
+        user_info = get_user_info_by_user_id_db(user.id)
         self.assertEqual(user_info.birthday, datetime.date(1989, 11, 25))
         self.assertEqual(user_info.sex, SexChoices.FEMALE)
         self.assertEqual(user_info.show_wechat_no, True)

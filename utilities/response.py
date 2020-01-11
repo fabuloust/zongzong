@@ -54,7 +54,7 @@ def json_http_error(error_msg, error_code=1, result=None, status=HTTPStatus.BAD_
     :return:
     """
     return json_http_response_extend(result, error_code, error_msg, status)
-
+g
 
 def json_http_response_extend(result=None, error_code=0, error_msg=u'', status=HTTPStatus.OK):
     response = {"error_code": error_code, "error_msg": error_msg}
