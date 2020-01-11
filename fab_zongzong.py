@@ -48,7 +48,7 @@ def _test_db_migrate():
     """
     migrate
     """
-    run("./PYTHON.sh manage.py migrate")
+    run("./PYTHON.sh manage.py migrate {}".format(' '.join(OWN_APPS)))
 
 
 def test_db_migrate_all():
