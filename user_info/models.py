@@ -16,7 +16,7 @@ class UserBaseInfo(models.Model):
     nickname = models.CharField(max_length=20, verbose_name=u'昵称', null=True)
     location = models.CharField(max_length=20, verbose_name=u'地区', null=True)
     signature = models.CharField(max_length=100, verbose_name=u'个性签名', null=True)
-    birthday = models.DateField(default=0, verbose_name=u'出生日期', null=True)
+    birthday = models.DateField(verbose_name=u'出生日期', null=True)
     wechat_no = models.CharField(max_length=50, verbose_name=u'微信号', null=True)
     show_wechat_no = models.BooleanField(default=False, verbose_name=u'是否展示微信号')
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)

@@ -859,3 +859,313 @@ Traceback (most recent call last):
   File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
     match = date_re.match(value)
 TypeError: expected string or bytes-like object
+2020-01-11 19:03:34,343 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 34, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 42, in update_my_profile_db
+    user_info = get_user_info_by_user_id_db(user.id)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 25, in get_user_info_by_user_id_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-11 19:08:57,090 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 34, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 42, in update_my_profile_db
+    user_info = get_user_info_by_user_id_db(user.id)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 25, in get_user_info_by_user_id_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-11 19:10:27,759 ERROR log.log_response Line:228  Internal Server Error: /user_info/my_profile/edit/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 538, in get_or_create
+    return self.get(**kwargs), False
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+user_info.models.UserBaseInfo.DoesNotExist: UserBaseInfo matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/views.py", line 34, in set_my_profile_view
+    signature, birthday)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 42, in update_my_profile_db
+    user_info = get_user_info_by_user_id_db(user.id)
+  File "/Users/huxiaotian/zongzong/zongzong/user_info/manager/user_info_mananger.py", line 25, in get_user_info_by_user_id_db
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 541, in get_or_create
+    return self._create_object_from_params(kwargs, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 575, in _create_object_from_params
+    obj = self.create(**params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1331, in execute_sql
+    for sql, params in self.as_sql():
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in as_sql
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1275, in <listcomp>
+    for obj in self.query.objs
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1274, in <listcomp>
+    [self.prepare_value(field, self.pre_save_val(field, obj)) for field in fields]
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1215, in prepare_value
+    value = field.get_db_prep_save(value, connection=self.connection)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 789, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1273, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1268, in get_prep_value
+    return self.to_python(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/fields/__init__.py", line 1230, in to_python
+    parsed = parse_date(value)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/dateparse.py", line 74, in parse_date
+    match = date_re.match(value)
+TypeError: expected string or bytes-like object
+2020-01-11 19:20:02,569 ERROR log.log_response Line:228  Internal Server Error: /footprint/create/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'content'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 55, in post_footprint_view
+    content = post_data['content']
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 80, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'content'
+2020-01-11 19:21:21,124 ERROR log.log_response Line:228  Internal Server Error: /footprint/create/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'content'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 55, in post_footprint_view
+    content = post_data['content']
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 80, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'content'
+2020-01-11 19:21:55,780 ERROR log.log_response Line:228  Internal Server Error: /footprint/create/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 383, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.IntegrityError: NOT NULL constraint failed: footprint_footprint.avatar
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 59, in post_footprint_view
+    footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list_str, hide)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 32, in create_footprint_db
+    image_list_str=image_list_str, hide=hide, avatar=user_info.avatar)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 422, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/models.py", line 56, in save
+    super(Footprint, self).save(force_insert, force_update, using, update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1332, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 383, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.IntegrityError: NOT NULL constraint failed: footprint_footprint.avatar

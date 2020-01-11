@@ -3,7 +3,6 @@ import json
 import random
 
 from api.manager.positon_manager import add_user_location
-from footprint.consts import FootprintChoices
 from footprint.models import Footprint
 from user_info.consts import SexChoices
 from user_info.models import UserBaseInfo

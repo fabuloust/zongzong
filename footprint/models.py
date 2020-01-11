@@ -28,7 +28,7 @@ class Footprint(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=20, verbose_name=u'姓名')
-    avatar = models.CharField(max_length=100, verbose_name=u'头像')
+    avatar = models.CharField(max_length=100, verbose_name=u'头像', null=True)
     sex = models.CharField(choices=SexChoices, verbose_name=u'性别', max_length=10)
     lat = models.CharField(max_length=20, verbose_name=u'维度', null=True, blank=True)
     lon = models.CharField(max_length=20, verbose_name=u'经度', null=True, blank=True)
