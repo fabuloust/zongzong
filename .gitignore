@@ -13,7 +13,7 @@ statistics_*.txt
 /*/migrations/*
 /htmlcov
 /media/**
-/log/**
+/logs/**
 /static/*
 /tmp
 .DS_Store
