@@ -16,13 +16,13 @@ def get_or_create_user_db(username):
     return user, created
 
 
-def get_user_info_by_user_id_db(user):
+def get_user_info_by_user_id_db(user_id):
     """
     获取用户小窗页信息
-    :param user:
+    :param user_id:
     :return:
     """
-    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user.id)
+    user_info, _ = UserBaseInfo.objects.get_or_create(user_id=user_id)
     return user_info
 
 
