@@ -51,7 +51,7 @@ def post_footprint_view(request):
     post_data = get_data_from_request(request)
     latitude = post_data.get('lat')
     longitude = post_data.get('lon')
-    location = post_data['location']
+    location = post_data.get('location')
     content = post_data['content']
     image_list_str = post_data['image_list']
     hide = bool(post_data.get('hide', False))

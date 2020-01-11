@@ -32,7 +32,7 @@ class Footprint(models.Model):
     sex = models.CharField(choices=SexChoices, verbose_name=u'性别', max_length=10)
     lat = models.CharField(max_length=20, verbose_name=u'维度', null=True, blank=True)
     lon = models.CharField(max_length=20, verbose_name=u'经度', null=True, blank=True)
-    location = models.CharField(max_length=50, verbose_name=u'地点')
+    location = models.CharField(max_length=50, verbose_name=u'地点', null=True, blank=True)
     content = models.CharField(max_length=200, verbose_name=u'痕迹内容')
     image_list_str = models.TextField(verbose_name=u'图片列表json')
     favor_num = models.PositiveIntegerField(default=0, verbose_name=u'点赞数')
