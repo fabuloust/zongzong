@@ -11,7 +11,7 @@ class UserBaseInfo(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.SET, unique=True)
     sex = models.CharField(choices=SexChoices, verbose_name=u'性别', max_length=10, default=SexChoices.MALE)
-    avatar = models.CharField(max_length=100, verbose_name=u'头像，同微信头像', null=True)
+    avatar = models.TextField(verbose_name=u'头像，同微信头像', null=True)
     open_id = models.CharField(unique=True, max_length=30, verbose_name="微信app的用户Id", null=True)
     nickname = models.CharField(max_length=20, verbose_name=u'昵称', null=True)
     location = models.CharField(max_length=20, verbose_name=u'地区', null=True)
