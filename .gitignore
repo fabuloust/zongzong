@@ -23,7 +23,7 @@ dbchange.sql
 coverage-local.sh
 nohup.out
 dump.rdb
-# logs/*.log
+logs/*.log
 
 sqlite3.db
 sqlite3.db-local

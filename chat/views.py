@@ -51,5 +51,5 @@ def post_content_view(request):
     return json_http_success()
 
 
-@require_GET
-@login_required
+# @require_GET
+# @login_required
