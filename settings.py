@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+OWN_APPS = [
     'api',
     'footprint',
     'user_info',
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'chat',
 ]
 
+INSTALLED_APPS += OWN_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

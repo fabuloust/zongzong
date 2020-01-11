@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from fabric.api import settings, sudo, cd, run, hosts
+from fabric.api import settings, cd, run, hosts
 from colorama import Fore
 
 from settings import OWN_APPS
@@ -41,7 +41,7 @@ def _test_db_schema_migration():
     """
     对所有app进行makemigrations
     """
-    run("./PYTHON.sh manage.py makemigrations" )
+    run("./PYTHON.sh manage.py makemigrations {}".format(' '.join(OWN_APPS)))
 
 
 def _test_db_migrate():
