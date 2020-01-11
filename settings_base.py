@@ -33,6 +33,7 @@ OWN_APPS = [
     'user_info',
     'weixin',
     'commercial',
+    'chat',
 ]
 
 INSTALLED_APPS += OWN_APPS
