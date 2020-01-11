@@ -2,9 +2,7 @@ import hashlib
 import json
 import time
 
-from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import ForeignKey
 
 
 class ChatRecord(models.Model):
@@ -23,8 +21,8 @@ class ChatRecord(models.Model):
         {"type": "purchase_ehr_record", "text": "XX为YY购买了健康档案"}
         {"type":"clinic_appointment","appointment_doctor_id":2,"appointment_doctor_name":"周玲"}
     """
-    addresser = ForeignKey(User, related_name='chat_addresser')
-    recipient = ForeignKey(User, null=True, related_name='chat_recipient')
+    addresser_id = models.PositiveIntegerField(verbose_name=u'发送者user_id')
+    recipient = models.IntegerField(default=0, help_text="接收者user_id")
     conversation_id = models.CharField(max_length=100, help_text='对话id号', db_index=True)
 
     content = models.TextField(default='{}', help_text='对话内容, json串')
