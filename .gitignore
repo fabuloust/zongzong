@@ -73,3 +73,4 @@ templates/sitemap/
 /dist
 *.egg-info/
 local
+*.log
