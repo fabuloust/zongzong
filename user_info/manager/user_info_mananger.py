@@ -40,16 +40,23 @@ def update_my_profile_db(user, sex, avatar, location, nickname, wechat_no, show_
     :param show_wechat_no:
     """
     user_info = get_user_info_db(user)
-    if user_info:
+    if sex:
         user_info.sex = sex
+    if avatar:
         user_info.avatar = avatar
+    if location:
         user_info.location = location
+    if nickname:
         user_info.nickname = nickname
+    if wechat_no:
         user_info.wechat_no = wechat_no
+    if show_wechat_no:
         user_info.show_wechat_no = show_wechat_no
+    if signature:
         user_info.signature = signature
+    if birthday:
         user_info.birthday = birthday
-        user_info.save()
+    user_info.save()
     return user_info
 
 
