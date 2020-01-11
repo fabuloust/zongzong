@@ -29,7 +29,7 @@ def create_footprint_db(user_id, thinking, latitude, longitude, location, image_
     user_info = get_user_info_by_user_id_db(user_id)
     footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
                                          content=thinking, lat=latitude, lon=longitude, location=location,
-                                         image_list_str=image_list_str, hide=hide)
+                                         image_list_str=image_list_str, hide=hide, avatar=user_info.avatar)
     return footprint
 
 

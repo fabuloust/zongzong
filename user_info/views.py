@@ -28,8 +28,8 @@ def set_my_profile_view(request):
     if show_wechat_no is not None:
         show_wechat_no = bool(int(show_wechat_no))
     signature = post_data.get('signature')
-
-    birthday = str_to_datetime(birthday)
+    if birthday:
+        birthday = str_to_datetime(birthday)
     user_info = update_my_profile_db(request.user, sex, avatar, location, nickname, wechat_no, show_wechat_no,
                                      signature, birthday)
     return json_http_success() if user_info else json_http_error()
