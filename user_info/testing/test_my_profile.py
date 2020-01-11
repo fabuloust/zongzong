@@ -18,12 +18,15 @@ class MyProfileTest(TestCase):
                                    'location': '地球', 'wechat_no': 'sss', 'show_wechat_no': 1,
                                    'signature': '这是我的签名', 'birthday': '2000-01-01'})
         self.assertEqual(result['error_code'], 0)
-        user_info = UserBaseInfo.objects.all()[0]
-        self.assertEqual(user_info.sex, 'f')
-        self.assertEqual(user_info.avatar, 'test.jpg')
-        self.assertEqual(user_info.nickname, 'test')
-        self.assertEqual(user_info.location, '地球')
-        self.assertEqual(user_info.wechat_no, 'sss')
-        self.assertEqual(user_info.show_wechat_no, 1)
-        self.assertEqual(user_info.signature, '这是我的签名')
-        self.assertEqual(user_info.birthday, datetime.date(2000, 1, 1))
+
+        result = client.json_get('/user_info/my_profile/')
+
+        self.assertEqual(result['sex'], 'f')
+        self.assertEqual(result['avatar'], 'test.jpg')
+        self.assertEqual(result['nickname'], 'test')
+        self.assertEqual(result['location'], '地球')
+        self.assertEqual(result['wechat_no'], 'sss')
+        self.assertEqual(result['show_wechat_no'], 1)
+        self.assertEqual(result['signature'], '这是我的签名')
+        self.assertEqual(result['birthday'], '2000-01-01')
+

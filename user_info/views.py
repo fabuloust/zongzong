@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from user_info.manager.user_info_mananger import update_my_profile_db
-from utilities.date_time import str_to_datetime
+from user_info.manager.user_info_mananger import update_my_profile_db, get_user_info_by_user_id_db
+from utilities.date_time import str_to_datetime, datetime_to_str
 from utilities.request_utils import get_data_from_request
 from utilities.response import json_http_success, json_http_error
 
@@ -33,3 +33,26 @@ def set_my_profile_view(request):
     user_info = update_my_profile_db(request.user, sex, avatar, location, nickname, wechat_no, show_wechat_no,
                                      signature, birthday)
     return json_http_success() if user_info else json_http_error()
+
+
+@csrf_exempt
+@login_required
+def get_my_profile_view(request):
+    """
+    获取我的资料
+    URL[GET]: /user_info/my_profile/
+    :param request:
+    :return:
+    """
+    user_info = get_user_info_by_user_id_db(request.user.id)
+    result = {
+        'avatar': user_info.avatar or '',
+        'nickname': user_info.nickname or '',
+        'birthday': datetime_to_str(user_info.birthday) if user_info.birthday else '',
+        'location': user_info.location or '',
+        'sex': user_info.sex,
+        'wechat_no': user_info.wechat_no,
+        'show_wechat_no': user_info.show_wechat_no,
+        'signature': user_info.signature
+    }
+    return json_http_success(result)
