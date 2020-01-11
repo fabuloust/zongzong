@@ -96,7 +96,7 @@ def _test_deploy_with_user(code_dir, commit_id, settings_name=None, same_databas
         # run('cp %s settings.py' % settings_name)
         # current_step_num += 1
         # print_step_info(steps_num, current_step_num, "更新settings")
-        run('source ../ENV/bin/activate')
+        # run('source ../ENV/bin/activate')
         # run('pip install -r requirements.txt')
 
         # 6.处理静态文件
