@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 
-from chat.manager.chat_manager import get_conversation_id_by_user_ids, create_chat_record_db
+from chat.manager.chat_manager import get_conversation_id_by_user_ids, create_chat_record_db, build_conversation_list, \
+    get_or_create_conversation_info, get_conversation_info_by_conversation_id
 from chat.manager.message_manager import ConversationMessageManager
 from utilities.request_utils import get_page_range, get_data_from_request
 from utilities.response import json_http_success, json_http_error
@@ -42,7 +43,7 @@ def post_content_view(request):
     data = get_data_from_request(request)
     receiver_id = int(data.get('receiver_id'))
     conversation_id = data.get('conversation_id')
-    if not receiver_id and not  conversation_id:
+    if not receiver_id and not conversation_id:
         return json_http_error('参数错误')
     conversation_id = conversation_id or get_conversation_id_by_user_ids([receiver_id, request.user.id])
     content = data['content_json']
@@ -52,11 +53,24 @@ def post_content_view(request):
     return json_http_success()
 
 
-# @require_GET
-# @login_required
-# def get_conversation_detail_view(request):
-#     """
-#     获取聊天详情
-#     :param request:
-#     :return:
-#     """
+@require_GET
+@login_required
+def get_conversation_detail_view(request):
+    """
+    获取聊天详情
+    :param request:
+    :return:
+    """
+    conversation_id = request.GET.get('conversation_id')
+    receiver_id = request.GET.get('receiver_id')
+    if conversation_id:
+        conversation_info = get_conversation_info_by_conversation_id(conversation_id)
+    elif receiver_id:
+        conversation_id = get_conversation_id_by_user_ids([int(receiver_id), request.user.id])
+        conversation_info, _ = get_or_create_conversation_info(conversation_id, request.user.id, int(receiver_id))
+    else:
+        return json_http_error('参数错误')
+    page = int(request.GET.get('page', 1))
+    start, end = get_page_range(page)
+    result = build_conversation_list(request.user.id, conversation_id, conversation_info, start, end)
+    return json_http_success(result)

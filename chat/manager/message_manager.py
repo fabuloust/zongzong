@@ -40,7 +40,7 @@ class ConversationMessageManager(object):
 
     @classmethod
     def get_all_message_list(cls, user_id):
-        all_message = redis.hgetall_pickle(cls.build_redis_key(user_id))
+        all_message = redis.hvals_pickle(cls.build_redis_key(user_id))
         all_message.sort(key=lambda item: item['time'])
         return all_message
 

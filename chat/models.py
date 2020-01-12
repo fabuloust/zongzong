@@ -22,13 +22,12 @@ class ChatRecord(models.Model):
         {"type":"clinic_appointment","appointment_doctor_id":2,"appointment_doctor_name":"周玲"}
     """
     addresser_id = models.PositiveIntegerField(verbose_name=u'发送者user_id')
-    recipient = models.IntegerField(default=0, help_text="接收者user_id")
     conversation_id = models.CharField(max_length=100, help_text='对话id号', db_index=True)
 
     content = models.TextField(default='{}', help_text='对话内容, json串')
     is_delete = models.BooleanField(default=False, help_text='辅助用户删除功能')
 
-    created_time = models.DateTimeField(db_index=True, help_text="为auto_now_add属性时，不能更改，因此去掉该属性")
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True, help_text="为auto_now_add属性时，不能更改，因此去掉该属性")
     last_modified = models.DateTimeField(auto_now=True)
 
     def get_timestamp_microsecond(self):
@@ -73,3 +72,6 @@ class ChatConversationInfo(models.Model):
 
     created_time = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("conversation_id", )

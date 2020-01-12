@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 
 from utilities.mock_utility.helper import create_user_login_client
@@ -11,4 +13,8 @@ class Test(TestCase):
         """
         client, user = create_user_login_client()
         client2, user2 = create_user_login_client()
-        client.json_post('/chat/post_content/')
+        client.json_post('/chat/post_content/', {'receiver_id': user2.id,
+                                                 'content_json': json.dumps({'type': 'image', 'content': '1.jpg'})})
+        print(client2.json_get('/chat/conversation_list/'))
+        print(client.json_get('/chat/conversation_list/'))
+        print(client2.json_get('/chat/get_conversation_detail/?receiver_id={}'.format(user.id)))
