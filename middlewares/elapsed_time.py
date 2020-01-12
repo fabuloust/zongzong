@@ -27,7 +27,7 @@ def build_request_items(request):
         try:
             post_data = json.loads(request.body)
         except:
-            pass
+            post_data = {}
     else:
         post_data = request.POST
     for key, value in post_data.items():
