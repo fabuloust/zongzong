@@ -19,7 +19,7 @@ admin.site.register(CommercialActivity, ActivityAdmin)
 
 
 class TopBannerAdmin(VersionAdmin):
-    list_display = ['club', 'name', 'address']
+    list_display = ['title']
 
 
 admin.site.register(TopBanner, TopBannerAdmin)
