@@ -111,7 +111,7 @@ def build_comment(comment):
         'avatar': comment.avatar,
         'name': comment.name,
         'created_time': datetime_to_str(comment.created_time),
-        'content': comment.content,
+        'content': comment.comment,
         'user_id': comment.user_id
     }
 
@@ -139,7 +139,7 @@ def build_footprint_detail(footprint):
     """
     user_info = get_user_info_by_user_id_db(footprint.user_id)
     user_info_data = {
-        'avatar': user_info.image,
+        'avatar': user_info.avatar,
         'nickname': user_info.nickname,
     }
     foot_print_data = {

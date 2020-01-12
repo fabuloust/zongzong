@@ -6,7 +6,7 @@ from commercial.manager.banner_manager import get_top_banner_db, build_top_banne
 from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
     get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
-from utilities.request_utils import get_page_range
+from utilities.request_utils import get_page_range, get_data_from_request
 from utilities.response import json_http_success, json_http_error
 
 
@@ -107,10 +107,11 @@ def activity_detail_view(request):
 def participate_activity_view(request):
     """
     获取俱乐部信息
-    URL[GET]: /commercial/participate_activity/
+    URL[GET]: /commercial/subscribe_activity/
     """
     user = request.user
-    activity_id = request.GET['activity_id']
+    post_data = get_data_from_request(request)
+    activity_id = post_data['activity_id']
     user_info = get_user_info_by_user_id_db(user.id)
     error_msg = participate_activity(activity_id, user_info.id)
     return json_http_success() if not error_msg else json_http_error(error_msg)

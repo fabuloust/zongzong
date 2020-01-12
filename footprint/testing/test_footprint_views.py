@@ -19,6 +19,7 @@ class TestFootprint(TestCase):
         python manage.py test footprint.testing.test_footprint_views.TestFootprint.test_create_footprint_view
         """
         client, user = create_user_login_client()
+        client2, user2 = create_user_login_client()
         mock.create_user_info(user)
         image_list_str = json.dumps(['image1', 'image2', 'image3'])
         result = client.json_post('/footprint/create/',
@@ -28,6 +29,10 @@ class TestFootprint(TestCase):
         self.assertEqual(result['error_code'], 0)
         footprint = Footprint.objects.get(user_id=user.id)
         self.assertEqual(footprint.location, 'heaven')
+
+        client2.json_post('/footprint/comment/', {'footprint_id': footprint.id, 'comment': '评论下'})
+        result = client2.json_get('/footprint/detail/?footprint_id={}'.format(footprint.id))
+        print(result)
 
 
 

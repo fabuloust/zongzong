@@ -1169,3 +1169,108 @@ Traceback (most recent call last):
   File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 383, in execute
     return Database.Cursor.execute(self, query, params)
 django.db.utils.IntegrityError: NOT NULL constraint failed: footprint_footprint.avatar
+2020-01-12 07:23:05,522 ERROR log.log_response Line:228  Internal Server Error: /footprint/detail/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 78, in get_footprint_detail_view
+    footprint_detail = build_footprint_detail(footprint_id)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 140, in build_footprint_detail
+    user_info = get_user_info_by_user_id_db(footprint.user_id)
+AttributeError: 'NoneType' object has no attribute 'user_id'
+2020-01-12 07:23:36,815 ERROR log.log_response Line:228  Internal Server Error: /footprint/detail/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 78, in get_footprint_detail_view
+    footprint_detail = build_footprint_detail(footprint_id)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 140, in build_footprint_detail
+    user_info = get_user_info_by_user_id_db(footprint.user_id)
+AttributeError: 'str' object has no attribute 'user_id'
+2020-01-12 07:25:00,742 ERROR log.log_response Line:228  Internal Server Error: /footprint/detail/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 79, in get_footprint_detail_view
+    footprint_detail = build_footprint_detail(footprint)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 142, in build_footprint_detail
+    'avatar': user_info.image,
+AttributeError: 'UserBaseInfo' object has no attribute 'image'
+2020-01-12 07:25:21,563 ERROR log.log_response Line:228  Internal Server Error: /footprint/detail/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/views.py", line 79, in get_footprint_detail_view
+    footprint_detail = build_footprint_detail(footprint)
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 155, in build_footprint_detail
+    comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 155, in <listcomp>
+    comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
+  File "/Users/huxiaotian/zongzong/zongzong/footprint/manager/footprint_manager.py", line 114, in build_comment
+    'content': comment.content,
+AttributeError: 'Comment' object has no attribute 'content'
+2020-01-12 07:33:40,930 ERROR log.log_response Line:228  Internal Server Error: /commercial/get_club_info/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'club_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/commercial/views.py", line 51, in get_club_info_view
+    club_id = int(request.GET['club_id'])
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/utils/datastructures.py", line 80, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'club_id'
+2020-01-12 07:36:00,918 ERROR log.log_response Line:228  Internal Server Error: /commercial/get_activity_detail/
+Traceback (most recent call last):
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/ENV/lib/python3.7/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/Users/huxiaotian/zongzong/zongzong/commercial/views.py", line 100, in activity_detail_view
+    result = build_activity_detail(activity)
+  File "/Users/huxiaotian/zongzong/zongzong/commercial/manager/activity_manager.py", line 79, in build_activity_detail
+    'title': activity.title,
+AttributeError: 'CommercialActivity' object has no attribute 'title'

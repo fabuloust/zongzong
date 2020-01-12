@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from api.manager.positon_manager import add_user_location
 from footprint.manager.comment_manager import create_comment_db
 from footprint.manager.footprint_manager import create_footprint_db, add_favor_db, \
-    build_footprint_detail
+    build_footprint_detail, get_footprint_by_id_db
 from utilities.request_utils import get_data_from_request
 from utilities.response import json_http_success, json_http_error
 
@@ -75,5 +75,6 @@ def get_footprint_detail_view(request):
     :return:
     """
     footprint_id = request.GET.get('footprint_id')
-    footprint_detail = build_footprint_detail(footprint_id)
+    footprint = get_footprint_by_id_db(footprint_id)
+    footprint_detail = build_footprint_detail(footprint)
     return json_http_success(footprint_detail)

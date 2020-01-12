@@ -76,7 +76,7 @@ def build_activity_detail(activity):
     club = activity.club
     result = {
         'top_image': activity.top_image,
-        'title': activity.title,
+        'title': activity.name,
         'club_name': club.name,
         'avatar': club.avatar,
         'telephone': club.telephone,

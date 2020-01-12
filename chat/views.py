@@ -48,8 +48,15 @@ def post_content_view(request):
     content = data['content_json']
     chat_record = create_chat_record_db(conversation_id, content, request.user.id)
     # 发推送、更新badge、
+    ConversationMessageManager.add_message(receiver_id, request.user.id, conversation_id, content)
     return json_http_success()
 
 
 # @require_GET
 # @login_required
+# def get_conversation_detail_view(request):
+#     """
+#     获取聊天详情
+#     :param request:
+#     :return:
+#     """

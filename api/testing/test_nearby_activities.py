@@ -26,5 +26,9 @@ class TestNearby(TestCase):
         result = client.json_get('/api/discovery/')
         self.assertEqual(len(result['items']), 2)
         self.assertEqual(result['items'][0]['flow_type'], FlowType.FOOTPRINT)
+        result = client.json_get('/api/discovery/')
+        items = result['items']
+        self.assertEqual(len(items), 2)
+        self.assertEqual(items[0]['location'], '填上')
 
 
