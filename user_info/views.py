@@ -35,7 +35,6 @@ def set_my_profile_view(request):
     return json_http_success() if user_info else json_http_error()
 
 
-@csrf_exempt
 @login_required
 def get_my_profile_view(request):
     """
