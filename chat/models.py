@@ -27,7 +27,7 @@ class ChatRecord(models.Model):
     content = models.TextField(default='{}', help_text='对话内容, json串')
     is_delete = models.BooleanField(default=False, help_text='辅助用户删除功能')
 
-    created_time = models.DateTimeField(auto_now_add=True, db_index=True, help_text="为auto_now_add属性时，不能更改，因此去掉该属性")
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     last_modified = models.DateTimeField(auto_now=True)
 
     def get_timestamp_microsecond(self):
