@@ -78,3 +78,12 @@ def get_footprint_detail_view(request):
     footprint = get_footprint_by_id_db(footprint_id)
     footprint_detail = build_footprint_detail(footprint)
     return json_http_success(footprint_detail)
+
+#
+# @login_required
+# def get_user_footprint_track_view(request):
+#     """
+#     /footprint/user_track/
+#     :param request:
+#     :return:
+#     """

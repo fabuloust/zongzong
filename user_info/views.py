@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from user_info.manager.user_info_mananger import update_my_profile_db, get_user_info_by_user_id_db
+from user_info.manager.user_info_mananger import update_my_profile_db, get_user_info_by_user_id_db, \
+    get_user_brief_profile
 from utilities.date_time import str_to_datetime, datetime_to_str
 from utilities.request_utils import get_data_from_request
 from utilities.response import json_http_success, json_http_error
@@ -55,3 +56,19 @@ def get_my_profile_view(request):
         'signature': user_info.signature
     }
     return json_http_success(result)
+
+
+@login_required
+def get_user_brief_profile_view(request):
+    """
+    获取用户小窗口简介
+    1.用户个人资料
+    2.用户最新一条票圈
+    URL[GET]: /user_info/get_user_info/
+    :param request: user_id
+    """
+    user_id = request.GET['user_id']
+    if not user_id:
+        return json_http_error('')
+    return json_http_success({'user_info': get_user_brief_profile(user_id)})
+
