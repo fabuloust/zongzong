@@ -1,3 +1,5 @@
+from geopy.distance import geodesic
+
 from api.manager.positon_manager import user_location_container, activity_location_container
 from commercial.manager.activity_manager import get_commercial_activities_by_ids_db
 from footprint.manager.footprint_manager import get_footprints_by_ids_db
@@ -60,26 +62,28 @@ def get_nearby_activity(lon, lat, radius=7):
     return result
 
 
-def build_footprint_for_flow(footprint):
+def build_footprint_for_flow(footprint, lon, lat):
     return {
         'flow_id': footprint.id, 'flow_type': FlowType.FOOTPRINT, 'avatar': footprint.avatar,
-        'name': footprint.name, 'distance': 0, 'location': footprint.location,
+        'name': footprint.name, 'distance': geodesic((lat, lon), (footprint.lat, footprint.lon)),
+        'location': footprint.location,
         'post_time': datetime_to_str(footprint.created_time), 'content': footprint.content,
         'image_list': footprint.image_list
     }
 
 
-def build_activity_for_flow(activity):
+def build_activity_for_flow(activity, lon, lat):
     club = activity.club
     return {
         'flow_id': activity.id, 'flow_type': FlowType.ACTIVITY, 'avatar': club.avatar,
-        'name': club.name, 'distance': 0, 'location': activity.address,
+        'name': club.name, 'distance': geodesic((lat, lon), (activity.lat, activity.lon)),
+        'location': activity.address,
         'post_time': datetime_to_str(activity.created_time), 'content': activity.introduction,
         'image_list': activity.image_list
     }
 
 
-def build_flows_detail(flows):
+def build_flows_detail(flows, lon, lat):
     """
     构建事件流详情，需要针对足迹和活动分别build
     """
@@ -87,7 +91,7 @@ def build_flows_detail(flows):
     activitie_flows = filter(lambda item: item.flow_type == FlowType.ACTIVITY, flows)
     footprints = get_footprints_by_ids_db([item.flow_id for item in footprint_flows])
     activities = get_commercial_activities_by_ids_db([item.flow_id for item in activitie_flows])
-    footprint_details = [build_footprint_for_flow(footprint) for footprint in footprints]
-    activity_details = [build_activity_for_flow(activity) for activity in activities]
+    footprint_details = [build_footprint_for_flow(footprint, lon, lat) for footprint in footprints]
+    activity_details = [build_activity_for_flow(activity, lon, lat) for activity in activities]
     total_flow = footprint_details + activity_details
     return sorted(total_flow, key=lambda flow: flow['post_time'])
