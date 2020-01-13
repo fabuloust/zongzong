@@ -65,7 +65,7 @@ def get_nearby_activity(lon, lat, radius=7):
 def build_footprint_for_flow(footprint, lon, lat):
     return {
         'flow_id': footprint.id, 'flow_type': FlowType.FOOTPRINT, 'avatar': footprint.avatar,
-        'name': footprint.name, 'distance': geodesic((lat, lon), (footprint.lat, footprint.lon)),
+        'name': footprint.name, 'distance': geodesic((lat, lon), (footprint.lat, footprint.lon)).meters,
         'location': footprint.location,
         'post_time': datetime_to_str(footprint.created_time), 'content': footprint.content,
         'image_list': footprint.image_list
@@ -76,7 +76,7 @@ def build_activity_for_flow(activity, lon, lat):
     club = activity.club
     return {
         'flow_id': activity.id, 'flow_type': FlowType.ACTIVITY, 'avatar': club.avatar,
-        'name': club.name, 'distance': geodesic((lat, lon), (activity.lat, activity.lon)),
+        'name': club.name, 'distance': geodesic((lat, lon), (activity.lat, activity.lon)).meters,
         'location': activity.address,
         'post_time': datetime_to_str(activity.created_time), 'content': activity.introduction,
         'image_list': activity.image_list
