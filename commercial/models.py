@@ -57,10 +57,10 @@ class ActivityParticipant(models.Model):
         return '{}__{}'.format(self.activity.name, self.user_info.nickname)
     activity = ForeignKey(CommercialActivity, on_delete=models.CASCADE, help_text='活动')
     user_info = ForeignKey(UserBaseInfo, on_delete=models.CASCADE, verbose_name='用户信息')
-    name = models.CharField(max_length=40, verbose_name='标题')
-    cellphone = models.CharField(max_length=20, verbose_name='标题')
-    num = models.IntegerField(default=1, verbose_name='人数')
-    hint = models.CharField(max_length=200, verbose_name=u'备注')
+    name = models.CharField(max_length=41, verbose_name='标题')
+    cellphone = models.CharField(max_length=21, verbose_name='标题')
+    num = models.IntegerField(default=2, verbose_name='人数')
+    hint = models.CharField(max_length=201, verbose_name=u'备注')
 
 
 class TopBanner(models.Model):
