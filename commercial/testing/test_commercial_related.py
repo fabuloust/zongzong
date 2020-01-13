@@ -17,6 +17,8 @@ class Test(TestCase):
         activity = mock.create_activity(club)
         result = client.json_get('/commercial/get_activity_detail/?activity_id={}'.format(activity.id))
         self.assertEqual(len(result['participants']), 0)
-        client.json_post('/commercial/subscribe_activity/', {'activity_id': activity.id})
+        client.json_post('/commercial/subscribe_activity/', {'activity_id': activity.id, 'name': 'test',
+                                                             'cellphone': '18210065466', 'num': 2,
+                                                             'hint': '没有'})
         result = client.json_get('/commercial/get_activity_detail/?activity_id={}'.format(activity.id))
         self.assertEqual(len(result['participants']), 1)

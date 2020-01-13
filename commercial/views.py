@@ -4,7 +4,8 @@ from django.views.decorators.http import require_GET, require_POST
 
 from commercial.manager.banner_manager import get_top_banner_db, build_top_banner
 from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
-    get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity
+    get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity, \
+    get_commercial_activities_by_club_id_db, build_activity_brief_info
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.request_utils import get_page_range, get_data_from_request
 from utilities.response import json_http_success, json_http_error
@@ -112,6 +113,30 @@ def participate_activity_view(request):
     user = request.user
     post_data = get_data_from_request(request)
     activity_id = post_data['activity_id']
+    name = post_data['name']
+    cellphone = post_data['cellphone']
+    num = int(post_data['cellphone'])
+    hint = post_data['hint']
     user_info = get_user_info_by_user_id_db(user.id)
-    error_msg = participate_activity(activity_id, user_info.id)
+    error_msg = participate_activity(activity_id, user_info.id, name, cellphone, num, hint)
     return json_http_success() if not error_msg else json_http_error(error_msg)
+
+
+@require_GET
+@login_required
+def get_club_activities_info(request):
+    """
+    URL[GET]: /commercial/get_club_activity_info/
+    :param request:
+    :return:
+    """
+    club_id = int(request.GET['club_id'])
+    page = int(request.GET.get('page', 1))
+    start, end = get_page_range(page, 5)
+    club = get_club_by_id_db(club_id)
+    if not club:
+        return json_http_error('错误')
+    activities = get_commercial_activities_by_club_id_db(club_id, start, end)
+
+    return json_http_success({'activity_list': [build_activity_brief_info(activity) for activity in activities],
+                              'avatar': club.avatar})

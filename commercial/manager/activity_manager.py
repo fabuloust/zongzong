@@ -1,4 +1,7 @@
+from geopy.distance import geodesic
+
 from commercial.models import CommercialActivity, Club, ActivityParticipant
+from utilities.time_utils import get_time_show
 
 
 def get_commercial_activity_by_id_db(activity_id):
@@ -12,6 +15,10 @@ def get_commercial_activities_by_ids_db(ids):
     return CommercialActivity.objects.filter(id__in=ids)
 
 
+def get_commercial_activities_by_club_id_db(club_id, start, end):
+    return CommercialActivity.objects.filter(club_id=club_id).order_by('-created_time')[start: end]
+
+
 def get_club_by_id_db(club_id):
     try:
         return Club.objects.get(id=club_id)
@@ -19,8 +26,10 @@ def get_club_by_id_db(club_id):
         return None
 
 
-def create_activity_participate_record_db(activity_id, user_info_id):
-    return ActivityParticipant.objects.get_or_create(activity_id=activity_id, user_info_id=user_info_id)
+def create_activity_participate_record_db(activity_id, user_info_id, name, cellphone, num, hint):
+    return ActivityParticipant.objects.get_or_create(activity_id=activity_id, user_info_id=user_info_id, defaults={
+        'name': name, 'cellphone': cellphone, 'num': num, 'hint': hint
+    })
 
 
 def build_club_info(club):
@@ -86,6 +95,7 @@ def build_activity_detail(activity):
         'time_detail': activity.time_detail,
         'description': activity.description,
         'total_quota': activity.total_quota,
+        'image_list': activity.image_list,
     }
     participants = get_activity_participants(activity.id)
     result.update({'participants': [{'user_id': item.user_info.user_id, 'avatar': item.user_info.avatar}
@@ -93,13 +103,25 @@ def build_activity_detail(activity):
     return result
 
 
-def participate_activity(activity_id, user_info_id):
+def participate_activity(activity_id, user_info_id, name, cellphone, num, hint):
     activity = get_commercial_activity_by_id_db(activity_id)
     if activity.participant_num >= activity.total_quota:
         return '人数已满'
-    record, created = create_activity_participate_record_db(activity_id, user_info_id)
+    record, created = create_activity_participate_record_db(activity_id, user_info_id, name, cellphone, num, hint)
     if not created:
         return u'请勿重复报名'
     activity.participant_num += 1
     activity.save()
     return ''
+
+
+def build_activity_brief_info(activity, lon, lat):
+    distance = geodesic((activity.lat, activity.lon), (lat, lon))
+    return {
+        'time_detail': activity.time_detail,
+        'post_time': get_time_show(activity.created_time),
+        'name': activity.name,
+        'image_list': activity.image_list,
+        'distance': distance,
+        'activity_id': activity.id
+    }
