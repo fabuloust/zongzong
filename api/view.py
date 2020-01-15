@@ -70,6 +70,6 @@ def get_nearest_activity_view(request):
         return json_http_error('参数错误')
     members = activity_location_container.get_members_within_radius(lon, lat, 100, GeoUnitEnum.KM, sort=GeoSortEnum.ASC)
     if not members:
-        return json_http_error('附近无活动！')
+        return json_http_success()
     location = activity_location_container.get_position(members[0])[0]
     return json_http_success({'lat': location[1], 'lon': location[0]})

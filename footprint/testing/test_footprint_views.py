@@ -16,7 +16,7 @@ class TestFootprint(TestCase):
     def test_create_footprint_view(self):
         """
         测试发布踪踪
-        python manage.py test footprint.testing.test_footprint_views.TestFootprint.test_create_footprint_view
+        python manage.py test --settings=settings-test footprint.testing.test_footprint_views.TestFootprint.test_create_footprint_view
         """
         client, user = create_user_login_client()
         client2, user2 = create_user_login_client()
@@ -32,6 +32,9 @@ class TestFootprint(TestCase):
 
         client2.json_post('/footprint/comment/', {'footprint_id': footprint.id, 'comment': '评论下'})
         result = client2.json_get('/footprint/detail/?footprint_id={}'.format(footprint.id))
+        print(result)
+
+        result = client.json_get('/footprint/get_user_track/')
         print(result)
 
 

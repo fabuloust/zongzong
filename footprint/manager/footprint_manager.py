@@ -1,3 +1,5 @@
+from geopy.distance import geodesic
+
 from footprint.models import Footprint, FootprintFavor, TotalFlow, FlowType, Comment
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.date_time import datetime_to_str
@@ -43,6 +45,13 @@ def get_user_newest_footprint_db(user_id):
     return query[0] if query else None
 
 
+def get_footprints_by_user_id_db(user_id, start, end):
+    """
+    获取用户足迹
+    """
+    return Footprint.objects.filter(user_id=user_id).order_by('-created_time')[start: end]
+
+
 def update_footprint_favor_num_db(footprint_id, num):
     footprint = get_footprint_by_id_db(footprint_id)
     footprint.favor_num += num
@@ -60,6 +69,13 @@ def add_favor_db(footprint_id, user):
         footprint_favor.save()
     favor_num = update_footprint_favor_num_db(footprint_id, 1 if footprint_favor.favored else -1)
     return favor_num
+
+
+def update_comment_num_db(footprint_id, num=1):
+    footprint = get_footprint_by_id_db(footprint_id)
+    footprint.comment_num += num
+    footprint.save()
+    return footprint.comment_num
 
 
 def get_footprint_comment_list(footprint_id, start, end):
@@ -141,6 +157,7 @@ def build_footprint_detail(footprint):
     user_info_data = {
         'avatar': user_info.avatar,
         'nickname': user_info.nickname,
+        'user_id': footprint.user_id
     }
     foot_print_data = {
         'location': footprint.location,
@@ -156,4 +173,28 @@ def build_footprint_detail(footprint):
     result = user_info_data
     result.update(foot_print_data)
     result.update(comment_data)
+    return result
+
+
+def build_footprint_list_info(footprints, lat=None, lon=None):
+    """
+    构建足迹列表详情
+    :param footprints:
+    :return:
+    """
+    need_distance = bool(lat and lon)
+    result = []
+    for footprint in footprints:
+        info = {
+            'location': footprint.location,
+            'created_time': get_time_show(footprint.created_time),
+            'content': footprint.content,
+            'image_list': footprint.image_list,
+            'comment_num': footprint.comment_num,
+            'favor_num': footprint.favor_num
+        }
+        if need_distance:
+            distance = geodesic((lat, lon), (footprint.lat, footprint.lon)).meters
+            info['distance'] = distance
+        result.append(info)
     return result

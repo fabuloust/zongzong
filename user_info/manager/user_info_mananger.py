@@ -60,13 +60,13 @@ def update_my_profile_db(user, sex, avatar, location, nickname, wechat_no, show_
     return user_info
 
 
-def get_user_brief_profile(user):
+def get_user_brief_profile(user_id):
     """
     获取用户简介
-    :param user:
+    :param user_id:
     :return:
     """
-    user_info = get_user_info_by_user_id_db(user.id)
+    user_info = get_user_info_by_user_id_db(user_id)
     return {
         'avatar': user_info.avatar,
         'nickname': user_info.nickname,

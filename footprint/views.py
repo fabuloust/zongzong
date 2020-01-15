@@ -4,8 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from api.manager.positon_manager import add_user_location
 from footprint.manager.comment_manager import create_comment_db
 from footprint.manager.footprint_manager import create_footprint_db, add_favor_db, \
-    build_footprint_detail, get_footprint_by_id_db
-from utilities.request_utils import get_data_from_request
+    build_footprint_detail, get_footprint_by_id_db, get_footprints_by_user_id_db, update_comment_num_db, \
+    build_footprint_list_info
+from utilities.request_utils import get_data_from_request, get_page_range
 from utilities.response import json_http_success, json_http_error
 
 
@@ -36,7 +37,10 @@ def comment_footprint_view(request):
     footprint_id = post_data['footprint_id']
     comment = post_data['comment']
     success = create_comment_db(request.user, footprint_id, comment)
-    return json_http_success() if success else json_http_error()
+    if success:
+        comment_num = update_comment_num_db(footprint_id)
+        return json_http_success({'comment_num': comment_num})
+    return json_http_error()
 
 
 @csrf_exempt
@@ -79,11 +83,22 @@ def get_footprint_detail_view(request):
     footprint_detail = build_footprint_detail(footprint)
     return json_http_success(footprint_detail)
 
-#
-# @login_required
-# def get_user_footprint_track_view(request):
-#     """
-#     /footprint/user_track/
-#     :param request:
-#     :return:
-#     """
+
+@login_required
+def get_user_footprint_track_view(request):
+    """
+    /footprint/user_track/
+    :param request:
+    :return:
+    """
+    user_id = int(request.GET.get('user_id', 0)) or request.user.id
+    page = int(request.GET.get('page', 0))
+    lat = float(request.GET.get('lat', 0))
+    lon = float(request.GET.get('lon', 0))
+    start, end = get_page_range(page, 5)
+    footprints = get_footprints_by_user_id_db(user_id, start, end)
+    has_more = len(footprints) > 5
+    footprints = footprints[:5]
+    result = build_footprint_list_info(footprints, lat, lon)
+    return json_http_success({'footprints': result, 'has_more': has_more})
+
