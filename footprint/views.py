@@ -101,4 +101,3 @@ def get_user_footprint_track_view(request):
     footprints = footprints[:5]
     result = build_footprint_list_info(footprints, lat, lon)
     return json_http_success({'footprints': result, 'has_more': has_more})
-
