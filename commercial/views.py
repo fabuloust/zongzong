@@ -132,8 +132,8 @@ def get_club_activities_info(request):
     """
     club_id = int(request.GET['club_id'])
     page = int(request.GET.get('page', 1))
-    lat = int(request.GET.get('lat', 0))
-    lon = int(request.GET.get('lon', 0))
+    lat = float(request.GET.get('lat', 0))
+    lon = float(request.GET.get('lon', 0))
     start, end = get_page_range(page, 5)
     club = get_club_by_id_db(club_id)
     if not club:
