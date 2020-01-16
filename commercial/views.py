@@ -132,11 +132,13 @@ def get_club_activities_info(request):
     """
     club_id = int(request.GET['club_id'])
     page = int(request.GET.get('page', 1))
+    lat = int(request.GET.get('lat', 0))
+    lon = int(request.GET.get('lon', 0))
     start, end = get_page_range(page, 5)
     club = get_club_by_id_db(club_id)
     if not club:
         return json_http_error('错误')
     activities = get_commercial_activities_by_club_id_db(club_id, start, end)
 
-    return json_http_success({'activity_list': [build_activity_brief_info(activity) for activity in activities],
+    return json_http_success({'activity_list': [build_activity_brief_info(activity, lon, lat) for activity in activities],
                               'avatar': club.avatar})

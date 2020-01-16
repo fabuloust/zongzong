@@ -116,7 +116,7 @@ def participate_activity(activity_id, user_info_id, name, cellphone, num, hint):
 
 
 def build_activity_brief_info(activity, lon, lat):
-    distance = geodesic((activity.lat, activity.lon), (lat, lon)).meters
+    distance = geodesic((activity.lat, activity.lon), (lat, lon)).meters if lat and lon else 0
     return {
         'time_detail': activity.time_detail,
         'post_time': get_time_show(activity.created_time),
