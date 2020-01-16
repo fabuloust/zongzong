@@ -61,8 +61,6 @@ def build_conversation_list(user_id, conversation_id, conversation_info, start, 
     my_info = get_user_info_by_user_id_db(user_id)
     receiver_id = conversation_info.user_1_id if conversation_info.user_1_id != user_id else conversation_info.user_2_id
     receiver_info = get_user_info_by_user_id_db(receiver_id)
-    print(ChatRecord.objects.filter(conversation_id=conversation_id))
-    print(ChatRecord.objects.all()[0].conversation_id, conversation_id)
     chat_record = ChatRecord.objects.filter(conversation_id=conversation_id).order_by('-created_time')[start: end + 1]
     result = {'has_more': len(chat_record) > end - start}
     result.update({
