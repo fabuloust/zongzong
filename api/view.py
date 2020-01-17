@@ -85,4 +85,4 @@ def get_upload_token_view(request):
     :return:
     """
     q = qiniu.Auth(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
-    return json_http_success({'token': q.upload_token('zongz')})
+    return json_http_success({'token': q.upload_token('zonez')})
