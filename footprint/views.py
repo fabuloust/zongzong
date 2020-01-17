@@ -14,7 +14,7 @@ from utilities.response import json_http_success, json_http_error
 def add_favor_view(request):
     """
     点赞view,点击两次的话就取消了
-    URL[POST]: /api/footprint
+    URL[POST]: /footprint/favor/
     :param request: footprint id
     :return favor_num: 总的点赞数
     """

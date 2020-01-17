@@ -68,7 +68,8 @@ def build_footprint_for_flow(footprint, lon, lat):
         'name': footprint.name, 'distance': geodesic((lat, lon), (footprint.lat, footprint.lon)).meters,
         'location': footprint.location,
         'post_time': datetime_to_str(footprint.created_time), 'content': footprint.content,
-        'image_list': footprint.image_list
+        'image_list': footprint.image_list,
+        'user_id': footprint.user_id,
     }
 
 

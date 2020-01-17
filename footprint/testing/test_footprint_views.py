@@ -4,6 +4,7 @@ import random
 from django.test import TestCase
 
 from api.testing import mock
+from footprint.manager.footprint_manager import get_footprint_by_id_db
 from footprint.models import Footprint
 from utilities.mock_utility.helper import create_user_login_client
 
@@ -32,11 +33,10 @@ class TestFootprint(TestCase):
 
         client2.json_post('/footprint/comment/', {'footprint_id': footprint.id, 'comment': '评论下'})
         result = client2.json_get('/footprint/detail/?footprint_id={}'.format(footprint.id))
-        print(result)
-
         result = client.json_get('/footprint/get_user_track/')
-        print(result)
-
-
-
-
+        result = client2.json_post('/footprint/favor/', {'footprint_id': footprint.id})
+        footprint = get_footprint_by_id_db(footprint.id)
+        self.assertEqual(footprint.favor_num, 1)
+        client2.json_post('/footprint/favor/', {'footprint_id': footprint.id})
+        footprint = get_footprint_by_id_db(footprint.id)
+        self.assertEqual(footprint.favor_num, 0)

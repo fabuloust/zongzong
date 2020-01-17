@@ -67,6 +67,7 @@ def add_favor_db(footprint_id, user):
     if not created:
         footprint_favor.favored = not footprint_favor.favored
         footprint_favor.save()
+
     favor_num = update_footprint_favor_num_db(footprint_id, 1 if footprint_favor.favored else -1)
     return favor_num
 
