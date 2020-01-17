@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
@@ -47,7 +49,7 @@ def post_content_view(request):
         return json_http_error('参数错误')
     conversation_id = conversation_id or get_conversation_id_by_user_ids([receiver_id, request.user.id])
     content = data['content_json']
-    chat_record = create_chat_record_db(conversation_id, content, request.user.id)
+    chat_record = create_chat_record_db(conversation_id, json.dumps(content), request.user.id)
     # 发推送、更新badge、
     ConversationMessageManager.add_message(receiver_id, request.user.id, conversation_id, content)
     return json_http_success()
