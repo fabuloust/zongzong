@@ -1,6 +1,8 @@
+import qiniu
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_POST
 
+from api.consts import QINIU_ACCESS_KEY, QINIU_SECRET_KEY
 from api.manager.positon_manager import activity_location_container
 from api.manager.view_manager import get_nearby_activity, build_flows_detail
 from footprint.manager.footprint_manager import get_flows_db
@@ -76,10 +78,11 @@ def get_nearest_activity_view(request):
 
 
 @login_required
-def get_upload_token(request):
+def get_upload_token_view(request):
     """
     获取图片上传的token
     :param request:
     :return:
     """
-    return
+    q = qiniu.Auth(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
+    return json_http_success({'token': q.upload_token('zongz')})
