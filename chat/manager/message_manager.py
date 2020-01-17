@@ -27,7 +27,7 @@ class ConversationMessageManager(object):
         :param content:
         :return:
         """
-        user_info = get_user_info_by_user_id_db(from_user_id)
+        user_info = get_user_info_by_user_id_db(to_user_id)
         message = {
             'conversation_id': conversation_id, 'avatar': user_info.avatar, 'last_message': content, 'has_new': 1,
             'time': datetime_to_str(datetime.datetime.now(), FORMAT_DATETIME), 'username': user_info.nickname

@@ -16,7 +16,7 @@ def get_time_show(real_time, just_now_range=60):
     elif seconds < 60 * 60:
         result = u"半小时前"
     elif seconds < 24 * 60 * 60:
-        result = str(seconds / 3600) + u"小时前"
+        result = str(int(seconds / 3600)) + u"小时前"
     else:
         result = real_time.strftime("%-m月%-d日")
     return ensure_unicode(result)

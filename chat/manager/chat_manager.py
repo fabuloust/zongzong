@@ -1,4 +1,5 @@
 import hashlib
+import json
 
 from chat.models import ChatRecord, ChatConversationInfo
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
@@ -64,7 +65,7 @@ def build_conversation_list(user_id, conversation_id, conversation_info, start, 
     chat_record = ChatRecord.objects.filter(conversation_id=conversation_id).order_by('-created_time')[start: end + 1]
     result = {'has_more': len(chat_record) > end - start}
     result.update({
-        'content_list': [{'content': chat.content, 'is_me': user_id == chat.addresser_id,
+        'content_list': [{'content': json.loads(chat.content), 'is_me': user_id == chat.addresser_id,
                           'created_time': datetime_to_str(chat.created_time, FORMAT_DATETIME)} for chat in chat_record]
     })
     result.update({'my_info': {'user_id': user_id, 'avatar': my_info.avatar},

@@ -1,3 +1,5 @@
+import json
+
 from geopy.distance import geodesic
 
 from footprint.models import Footprint, FootprintFavor, TotalFlow, FlowType, Comment
@@ -17,7 +19,7 @@ def get_footprints_by_ids_db(footprint_ids):
     return Footprint.objects.filter(id__in=footprint_ids)
 
 
-def create_footprint_db(user_id, thinking, latitude, longitude, location, image_list_str, hide):
+def create_footprint_db(user_id, thinking, latitude, longitude, location, image_list, hide):
     """
     创建痕迹
     :param user_id:
@@ -25,13 +27,13 @@ def create_footprint_db(user_id, thinking, latitude, longitude, location, image_
     :param latitude: 纬度
     :param longitude: 经度
     :param location: 地点名
-    :param image_list_str: json list
+    :param image_list: list
     :return: footprint
     """
     user_info = get_user_info_by_user_id_db(user_id)
     footprint = Footprint.objects.create(user=user_info.user, name=user_info.nickname, sex=user_info.sex,
                                          content=thinking, lat=latitude, lon=longitude, location=location,
-                                         image_list_str=image_list_str, hide=hide, avatar=user_info.avatar)
+                                         image_list_str=json.dumps(image_list), hide=hide, avatar=user_info.avatar)
     return footprint
 
 
@@ -163,7 +165,7 @@ def build_footprint_detail(footprint):
     foot_print_data = {
         'location': footprint.location,
         'content': footprint.content,
-        'image_list': footprint.image_list_str,
+        'image_list': footprint.image_list,
         'favor_num': footprint.favor_num,
         'reply_num': footprint.comment_num,
         'forward_num': footprint.forward_num,
