@@ -73,3 +73,13 @@ def get_nearest_activity_view(request):
         return json_http_success()
     location = activity_location_container.get_position(members[0])[0]
     return json_http_success({'lat': location[1], 'lon': location[0]})
+
+
+@login_required
+def get_upload_token(request):
+    """
+    获取图片上传的token
+    :param request:
+    :return:
+    """
+    return

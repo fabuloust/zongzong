@@ -1,7 +1,7 @@
 # -*- encoding:utf-8 -*-
 from __future__ import absolute_import
 
-import _pickle as pickle
+import pickle
 import os
 import threading
 import time
