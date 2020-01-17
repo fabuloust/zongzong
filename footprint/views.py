@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -59,7 +61,7 @@ def post_footprint_view(request):
     content = post_data['content']
     image_list_str = post_data['image_list']
     hide = bool(post_data.get('hide', False))
-
+    logging.log('{}{}'.format(type(image_list_str), image_list_str))
     footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list_str, hide)
     if latitude and longitude:
         add_user_location(footprint.id, longitude, latitude)
