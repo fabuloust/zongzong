@@ -63,6 +63,7 @@ def get_conversation_detail_view(request):
     """
     conversation_id = request.GET.get('conversation_id')
     receiver_id = request.GET.get('receiver_id')
+    msg_id = int(request.GET.get('msg_id', 0))
     if conversation_id:
         conversation_info = get_conversation_info_by_conversation_id(conversation_id)
     elif receiver_id:
@@ -70,7 +71,5 @@ def get_conversation_detail_view(request):
         conversation_info, _ = get_or_create_conversation_info(conversation_id, request.user.id, int(receiver_id))
     else:
         return json_http_error('参数错误')
-    page = int(request.GET.get('page', 1))
-    start, end = get_page_range(page)
-    result = build_conversation_list(request.user.id, conversation_id, conversation_info, start, end)
+    result = build_conversation_list(request.user.id, conversation_id, conversation_info, msg_id)
     return json_http_success(result)

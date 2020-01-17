@@ -1,6 +1,8 @@
 import hashlib
 import json
 
+from django.db.models import Q
+
 from chat.models import ChatRecord, ChatConversationInfo
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.date_time import datetime_to_str, FORMAT_DATETIME
@@ -50,7 +52,7 @@ def get_or_create_conversation_info(conversation_id, send_id, receiver_id):
                                                       defaults={'user_1_id': user_ids[0], 'user_2_id': user_ids[1]})
 
 
-def build_conversation_list(user_id, conversation_id, conversation_info, start, end):
+def build_conversation_list(user_id, conversation_id, conversation_info, msg_id):
     """
 
     :param user_id:
@@ -62,8 +64,11 @@ def build_conversation_list(user_id, conversation_id, conversation_info, start, 
     my_info = get_user_info_by_user_id_db(user_id)
     receiver_id = conversation_info.user_1_id if conversation_info.user_1_id != user_id else conversation_info.user_2_id
     receiver_info = get_user_info_by_user_id_db(receiver_id)
-    chat_record = ChatRecord.objects.filter(conversation_id=conversation_id).order_by('-created_time')[start: end + 1]
-    result = {'has_more': len(chat_record) > end - start}
+    query = Q(conversation_id=conversation_id)
+    if msg_id:
+        query &= Q(id__lte=msg_id)
+    chat_record = ChatRecord.objects.filter(query).order_by('-created_time')[0: 21]
+    result = {'has_more': len(chat_record) > 20}
     result.update({
         'content_list': [{'content': json.loads(chat.content), 'is_me': user_id == chat.addresser_id,
                           'created_time': datetime_to_str(chat.created_time, FORMAT_DATETIME)} for chat in chat_record]
