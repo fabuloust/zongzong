@@ -61,7 +61,7 @@ def post_footprint_view(request):
     content = post_data['content']
     image_list = post_data['image_list']
     hide = bool(int(post_data.get('hide', 0)))
-    footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list_str, hide)
+    footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list, hide)
     if latitude and longitude:
         add_user_location(footprint.id, longitude, latitude)
     return json_http_success()

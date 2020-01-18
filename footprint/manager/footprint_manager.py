@@ -194,7 +194,8 @@ def build_footprint_list_info(footprints, lat=None, lon=None):
             'content': footprint.content,
             'image_list': footprint.image_list,
             'comment_num': footprint.comment_num,
-            'favor_num': footprint.favor_num
+            'favor_num': footprint.favor_num,
+            'footprint_id': footprint.id,
         }
         if need_distance:
             distance = geodesic((lat, lon), (footprint.lat, footprint.lon)).meters

@@ -71,7 +71,8 @@ def build_conversation_list(user_id, conversation_id, conversation_info, msg_id)
     result = {'has_more': len(chat_record) > 20}
     result.update({
         'content_list': [{'content': json.loads(chat.content), 'is_me': user_id == chat.addresser_id,
-                          'created_time': datetime_to_str(chat.created_time, FORMAT_DATETIME)} for chat in chat_record]
+                          'created_time': datetime_to_str(chat.created_time, FORMAT_DATETIME),
+                          'msg_id': chat.id} for chat in chat_record]
     })
     result.update({'my_info': {'user_id': user_id, 'avatar': my_info.avatar},
                    'receiver_info': {'user_id': receiver_id, 'avatar': receiver_info.avatar}})
