@@ -75,14 +75,16 @@ def build_footprint_for_flow(footprint, user_id, lon, lat):
     }
 
 
-def build_activity_for_flow(activity, lon, lat):
+def build_activity_for_flow(activity, user_id, lon, lat):
     club = activity.club
     return {
         'flow_id': activity.id, 'flow_type': FlowType.ACTIVITY, 'avatar': club.avatar,
         'name': club.name, 'distance': geodesic((lat, lon), (activity.lat, activity.lon)).meters,
         'location': activity.address,
         'post_time': datetime_to_str(activity.created_time), 'content': activity.introduction,
-        'image_list': activity.image_list
+        'image_list': activity.image_list,
+        'favored': is_user_favored(user_id, activity.id, FlowType.FOOTPRINT),
+        'favor_num': activity.favor_num,
     }
 
 
@@ -95,6 +97,6 @@ def build_flows_detail(flows, user_id, lon, lat):
     footprints = get_footprints_by_ids_db([item.flow_id for item in footprint_flows])
     activities = get_commercial_activities_by_ids_db([item.flow_id for item in activitie_flows])
     footprint_details = [build_footprint_for_flow(footprint, user_id, lon, lat) for footprint in footprints]
-    activity_details = [build_activity_for_flow(activity, lon, lat) for activity in activities]
+    activity_details = [build_activity_for_flow(activity, user_id, lon, lat) for activity in activities]
     total_flow = footprint_details + activity_details
     return sorted(total_flow, key=lambda flow: flow['post_time'], reverse=True)
