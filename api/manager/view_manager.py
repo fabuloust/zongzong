@@ -70,7 +70,8 @@ def build_footprint_for_flow(footprint, user_id, lon, lat):
         'post_time': datetime_to_str(footprint.created_time), 'content': footprint.content,
         'image_list': footprint.image_list,
         'user_id': footprint.user_id,
-        'favored': is_user_favored_footprint(user_id, footprint.id),
+        'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT),
+        'favor_num': footprint.favor_num,
     }
 
 

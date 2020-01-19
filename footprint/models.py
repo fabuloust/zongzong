@@ -76,6 +76,18 @@ class Comment(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
 
+class Favor(models.Model):
+    """
+    痕迹点赞记录
+    """
+    flow_id = models.PositiveIntegerField(verbose_name='footprint or commercial_activity id')
+    flow_type = models.SmallIntegerField(choices=FlowType)
+    user_id = models.IntegerField(verbose_name=u'评论者user_id')
+    favored = models.BooleanField(verbose_name=u'是否点赞', default=True)
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+
 class FootprintFavor(models.Model):
     """
     痕迹点赞记录

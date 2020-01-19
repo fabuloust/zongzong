@@ -2,7 +2,8 @@ import json
 
 from geopy.distance import geodesic
 
-from footprint.models import Footprint, FootprintFavor, TotalFlow, FlowType, Comment
+from commercial.manager.activity_manager import get_commercial_activity_by_id_db
+from footprint.models import Footprint, Favor, TotalFlow, FlowType, Comment
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.date_time import datetime_to_str
 from utilities.time_utils import get_time_show
@@ -61,16 +62,25 @@ def update_footprint_favor_num_db(footprint_id, num):
     return footprint.favor_num
 
 
-def add_favor_db(footprint_id, user):
+def update_activity_favor_num(activity_id, num):
+    activity = get_commercial_activity_by_id_db(activity_id)
+    activity.favor_num += num
+    activity.save()
+    return activity.favor_num
+
+
+def add_favor_db(flow_id, flow_type, user_id):
     """
     点赞
     """
-    footprint_favor, created = FootprintFavor.objects.get_or_create(footprint_id=footprint_id, user=user)
+    favor, created = Favor.objects.get_or_create(flow_id=flow_id, flow_type=flow_type, user_id=user_id)
     if not created:
-        footprint_favor.favored = not footprint_favor.favored
-        footprint_favor.save()
-
-    favor_num = update_footprint_favor_num_db(footprint_id, 1 if footprint_favor.favored else -1)
+        favor.favored = not favor.favored
+        favor.save()
+    if flow_type == FlowType.FOOTPRINT:
+        favor_num = update_footprint_favor_num_db(flow_id, 1 if favor.favored else -1)
+    else:
+        favor_num = update_activity_favor_num(flow_id, 1 if favor.favored else -1)
     return favor_num
 
 
@@ -94,8 +104,8 @@ def get_flows_db(start_num, end_num):
     return TotalFlow.objects.order_by('-created_time')[start_num: end_num]
 
 
-def is_user_favored_footprint(user_id, footprint_id):
-    return FootprintFavor.objects.filter(user_id=user_id, footprint_id=footprint_id).exists()
+def is_user_favored_footprint(user_id, flow_id, flow_type):
+    return Favor.objects.filter(user_id=user_id, flow_id=flow_id, flow_type=flow_type).exists()
 
 
 def build_user_footprint(footprint):
@@ -174,7 +184,7 @@ def build_footprint_detail(footprint, user_id):
         'reply_num': footprint.comment_num,
         'forward_num': footprint.forward_num,
         'show_time': get_time_show(footprint.created_time),
-        'favored': is_user_favored_footprint(user_id, footprint.id)
+        'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT),
     }
     comment_list = get_footprint_comment_list(footprint.id, 0, 20)
     comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
@@ -201,7 +211,7 @@ def build_footprint_list_info(footprints, user_id, lat=None, lon=None):
             'comment_num': footprint.comment_num,
             'favor_num': footprint.favor_num,
             'footprint_id': footprint.id,
-            'favored': is_user_favored_footprint(user_id, footprint.id)
+            'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT)
         }
         if need_distance:
             distance = geodesic((lat, lon), (footprint.lat, footprint.lon)).meters
