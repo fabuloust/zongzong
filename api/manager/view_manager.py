@@ -1,7 +1,7 @@
 from geopy.distance import geodesic
 
 from api.manager.positon_manager import user_location_container, activity_location_container
-from commercial.manager.activity_manager import get_commercial_activities_by_ids_db
+from commercial.manager.db_manager import get_commercial_activities_by_ids_db
 from footprint.manager.footprint_manager import get_footprints_by_ids_db, is_user_favored
 from footprint.models import FlowType
 from utilities.date_time import time_format, datetime_to_str

@@ -2,7 +2,7 @@ import json
 
 from geopy.distance import geodesic
 
-from commercial.manager.activity_manager import get_commercial_activity_by_id_db
+from commercial.manager.db_manager import get_commercial_activity_by_id_db
 from footprint.models import Footprint, Favor, TotalFlow, FlowType, Comment
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.date_time import datetime_to_str

@@ -3,9 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 
 from commercial.manager.banner_manager import get_top_banner_db, build_top_banner
-from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
-    get_commercial_activity_by_id_db, build_activity_detail, participate_activity, \
-    get_commercial_activities_by_club_id_db, build_activity_brief_info
+from commercial.manager.activity_manager import build_club_info, \
+    build_activity_detail, participate_activity, \
+    build_activity_brief_info
+from commercial.manager.db_manager import get_commercial_activity_by_id_db, get_commercial_activities_by_club_id_db, \
+    get_club_by_id_db
 from footprint.manager.footprint_manager import add_favor_db
 from footprint.models import FlowType
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
