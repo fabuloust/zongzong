@@ -67,11 +67,11 @@ def build_conversation_list(user_id, conversation_id, conversation_info, msg_id,
     query = Q(conversation_id=conversation_id)
     result = {}
     if get_new:
-        query &= Q(id__gte=msg_id)
+        query &= Q(id__gt=msg_id)
         chat_record = ChatRecord.objects.filter(query).order_by('-created_time')
     else:
         if msg_id:
-            query &= Q(id__lte=msg_id)
+            query &= Q(id__lt=msg_id)
         chat_record = ChatRecord.objects.filter(query).order_by('-created_time')[0: 21]
         result = {'has_more': len(chat_record) > 20}
         chat_record = chat_record[:20]
