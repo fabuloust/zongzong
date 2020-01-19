@@ -13,6 +13,7 @@ from utilities.request_utils import get_data_from_request, get_page_range
 from utilities.response import json_http_success, json_http_error
 
 
+@csrf_exempt
 @login_required
 def add_favor_view(request):
     """
