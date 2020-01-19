@@ -105,7 +105,7 @@ def get_flows_db(start_num, end_num):
 
 
 def is_user_favored(user_id, flow_id, flow_type):
-    return Favor.objects.filter(user_id=user_id, flow_id=flow_id, flow_type=flow_type).exists()
+    return Favor.objects.filter(user_id=user_id, flow_id=flow_id, flow_type=flow_type, favored=True).exists()
 
 
 def build_user_footprint(footprint):
