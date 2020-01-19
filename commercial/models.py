@@ -37,7 +37,7 @@ class CommercialActivity(models.Model):
     participant_num = models.IntegerField(default=0, verbose_name='报名名额')
     top_image = models.CharField(max_length=250, verbose_name='顶部')
     image_list = models.TextField(verbose_name='图片列表')
-    favor_num = models.IntegerField(default=0, verbose_name=u'点赞人数')
+    favor_num = models.IntegerField(default=0, verbose_name=u'点赞人数', help_text=u'点赞人数')
 
     created_time = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
