@@ -145,5 +145,5 @@ def favor_activity_view(request):
     """
     post_data = get_data_from_request(request)
     activity_id = post_data['activity_id']
-    favor_num = add_favor_db(activity_id, FlowType.ACTIVITY, request.user)
+    favor_num = add_favor_db(activity_id, FlowType.ACTIVITY, request.user.id)
     return json_http_success({'favor_num': favor_num})

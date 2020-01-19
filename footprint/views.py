@@ -23,7 +23,7 @@ def add_favor_view(request):
     """
     post_data = get_data_from_request(request)
     footprint_id = post_data['footprint_id']
-    favor_num = add_favor_db(footprint_id, FlowType.FOOTPRINT, request.user)
+    favor_num = add_favor_db(footprint_id, FlowType.FOOTPRINT, request.user.id)
     return json_http_success({'favor_num': favor_num})
 
 
