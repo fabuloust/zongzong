@@ -12,7 +12,7 @@ def get_time_show(real_time, just_now_range=60):
     if seconds < just_now_range:
         result = str(seconds) + u"秒前"
     elif seconds < 30 * 60:
-        result = str(seconds / 60) + u"分钟前"
+        result = str(int(seconds / 60)) + u"分钟前"
     elif seconds < 60 * 60:
         result = u"半小时前"
     elif seconds < 24 * 60 * 60:
