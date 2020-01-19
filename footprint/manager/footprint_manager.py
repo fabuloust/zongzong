@@ -104,7 +104,7 @@ def get_flows_db(start_num, end_num):
     return TotalFlow.objects.order_by('-created_time')[start_num: end_num]
 
 
-def is_user_favored_footprint(user_id, flow_id, flow_type):
+def is_user_favored(user_id, flow_id, flow_type):
     return Favor.objects.filter(user_id=user_id, flow_id=flow_id, flow_type=flow_type).exists()
 
 
@@ -184,7 +184,7 @@ def build_footprint_detail(footprint, user_id):
         'reply_num': footprint.comment_num,
         'forward_num': footprint.forward_num,
         'show_time': get_time_show(footprint.created_time),
-        'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT),
+        'favored': is_user_favored(user_id, footprint.id, FlowType.FOOTPRINT),
     }
     comment_list = get_footprint_comment_list(footprint.id, 0, 20)
     comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
@@ -211,7 +211,7 @@ def build_footprint_list_info(footprints, user_id, lat=None, lon=None):
             'comment_num': footprint.comment_num,
             'favor_num': footprint.favor_num,
             'footprint_id': footprint.id,
-            'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT)
+            'favored': is_user_favored(user_id, footprint.id, FlowType.FOOTPRINT)
         }
         if need_distance:
             distance = geodesic((lat, lon), (footprint.lat, footprint.lon)).meters

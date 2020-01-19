@@ -4,8 +4,10 @@ from django.views.decorators.http import require_GET, require_POST
 
 from commercial.manager.banner_manager import get_top_banner_db, build_top_banner
 from commercial.manager.activity_manager import get_club_by_id_db, build_club_info, \
-    get_club_activities_info, get_commercial_activity_by_id_db, build_activity_detail, participate_activity, \
+    get_commercial_activity_by_id_db, build_activity_detail, participate_activity, \
     get_commercial_activities_by_club_id_db, build_activity_brief_info
+from footprint.manager.footprint_manager import add_favor_db
+from footprint.models import FlowType
 from user_info.manager.user_info_mananger import get_user_info_by_user_id_db
 from utilities.request_utils import get_page_range, get_data_from_request
 from utilities.response import json_http_success, json_http_error
@@ -59,21 +61,6 @@ def get_club_info_view(request):
 
 @require_GET
 @login_required
-def get_club_activities_info_view(request):
-    """
-    获取俱乐部活动信息
-    :param request: page
-    :return:
-    """
-    page = int(request.GET.get('page', 1))
-    club_id = int(request.GET.get('club_id'))
-    start_num, end_num = get_page_range(page)
-    activities_info = get_club_activities_info(club_id, start_num, end_num)
-    return json_http_success(activities_info)
-
-
-@require_GET
-@login_required
 def activity_detail_view(request):
     """
     获取活动详细信息
@@ -98,7 +85,7 @@ def activity_detail_view(request):
     activity = get_commercial_activity_by_id_db(activity_id)
     if not activity:
         return json_http_error('id错误')
-    result = build_activity_detail(activity)
+    result = build_activity_detail(activity, request.user.id)
     return json_http_success(result)
 
 
@@ -140,5 +127,21 @@ def get_club_activities_info(request):
         return json_http_error('错误')
     activities = get_commercial_activities_by_club_id_db(club_id, start, end)
 
-    return json_http_success({'activity_list': [build_activity_brief_info(activity, lon, lat) for activity in activities],
+    return json_http_success({'activity_list': [build_activity_brief_info(activity, request.user.id, lon, lat) for
+                                                activity in activities],
                               'avatar': club.avatar})
+
+
+@require_POST
+@login_required
+def favor_activity_view(request):
+    """
+    给活动点赞
+    URL[POST]: /commercial/favor_activity/
+    :param request:
+    :return:
+    """
+    post_data = get_data_from_request(request)
+    activity_id = post_data['activity_id']
+    favor_num = add_favor_db(activity_id, FlowType.ACTIVITY, request.user)
+    return json_http_success({'favor_num': favor_num})

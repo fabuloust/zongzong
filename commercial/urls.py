@@ -9,4 +9,5 @@ urlpatterns = [
     path('get_activity_detail/', activity_detail_view),
     path('subscribe_activity/', participate_activity_view),
     path('get_club_activity_info/', get_club_activities_info),
+    path('favor_activity/', )
 ]

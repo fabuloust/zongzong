@@ -8,6 +8,7 @@ from footprint.manager.comment_manager import create_comment_db
 from footprint.manager.footprint_manager import create_footprint_db, add_favor_db, \
     build_footprint_detail, get_footprint_by_id_db, get_footprints_by_user_id_db, update_comment_num_db, \
     build_footprint_list_info
+from footprint.models import FlowType
 from utilities.request_utils import get_data_from_request, get_page_range
 from utilities.response import json_http_success, json_http_error
 
@@ -22,7 +23,7 @@ def add_favor_view(request):
     """
     post_data = get_data_from_request(request)
     footprint_id = post_data['footprint_id']
-    favor_num = add_favor_db(footprint_id, request.user)
+    favor_num = add_favor_db(footprint_id, FlowType.FOOTPRINT, request.user)
     return json_http_success({'favor_num': favor_num})
 
 

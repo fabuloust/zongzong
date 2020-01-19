@@ -1,6 +1,8 @@
 from geopy.distance import geodesic
 
 from commercial.models import CommercialActivity, Club, ActivityParticipant
+from footprint.manager.footprint_manager import is_user_favored
+from footprint.models import FlowType
 from utilities.time_utils import get_time_show
 
 
@@ -65,7 +67,7 @@ def get_activity_participants(activity_id):
     return ActivityParticipant.objects.filter(activity_id=activity_id)
 
 
-def build_activity_detail(activity):
+def build_activity_detail(activity, user_id):
     """
     构建活动详情页信息
             top_image,
@@ -96,6 +98,8 @@ def build_activity_detail(activity):
         'description': activity.description,
         'total_quota': activity.total_quota,
         'image_list': activity.image_list,
+        'favored': is_user_favored(user_id, activity.id, FlowType.ACTIVITY),
+        'favor_num': activity.favor_num,
     }
     participants = get_activity_participants(activity.id)
     result.update({'participants': [{'user_id': item.user_info.user_id, 'avatar': item.user_info.avatar}
@@ -115,7 +119,7 @@ def participate_activity(activity_id, user_info_id, name, cellphone, num, hint):
     return ''
 
 
-def build_activity_brief_info(activity, lon, lat):
+def build_activity_brief_info(activity, user_id, lon, lat):
     distance = geodesic((activity.lat, activity.lon), (lat, lon)).meters if lat and lon else 0
     return {
         'time_detail': activity.time_detail,
@@ -123,5 +127,7 @@ def build_activity_brief_info(activity, lon, lat):
         'name': activity.name,
         'image_list': activity.image_list,
         'distance': distance,
-        'activity_id': activity.id
+        'activity_id': activity.id,
+        'favored': is_user_favored(user_id, activity.id, FlowType.ACTIVITY),
+        'favor_num': activity.favor_num
     }

@@ -2,7 +2,7 @@ from geopy.distance import geodesic
 
 from api.manager.positon_manager import user_location_container, activity_location_container
 from commercial.manager.activity_manager import get_commercial_activities_by_ids_db
-from footprint.manager.footprint_manager import get_footprints_by_ids_db, is_user_favored_footprint
+from footprint.manager.footprint_manager import get_footprints_by_ids_db, is_user_favored
 from footprint.models import FlowType
 from utilities.date_time import time_format, datetime_to_str
 
@@ -70,7 +70,7 @@ def build_footprint_for_flow(footprint, user_id, lon, lat):
         'post_time': datetime_to_str(footprint.created_time), 'content': footprint.content,
         'image_list': footprint.image_list,
         'user_id': footprint.user_id,
-        'favored': is_user_favored_footprint(user_id, footprint.id, FlowType.FOOTPRINT),
+        'favored': is_user_favored(user_id, footprint.id, FlowType.FOOTPRINT),
         'favor_num': footprint.favor_num,
     }
 
