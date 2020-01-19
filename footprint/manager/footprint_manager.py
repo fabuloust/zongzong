@@ -94,6 +94,10 @@ def get_flows_db(start_num, end_num):
     return TotalFlow.objects.order_by('-created_time')[start_num: end_num]
 
 
+def is_user_favored_footprint(user_id, footprint_id):
+    return FootprintFavor.objects.filter(user_id=user_id, footprint_id=footprint_id).exists()
+
+
 def build_user_footprint(footprint):
     """
     构建用户足迹
@@ -135,7 +139,7 @@ def build_comment(comment):
     }
 
 
-def build_footprint_detail(footprint):
+def build_footprint_detail(footprint, user_id):
     """
     展示的痕迹详情，包括
     1、用户头像、用户名、时间、距离自己，是否关注
@@ -169,7 +173,8 @@ def build_footprint_detail(footprint):
         'favor_num': footprint.favor_num,
         'reply_num': footprint.comment_num,
         'forward_num': footprint.forward_num,
-        'show_time': get_time_show(footprint.created_time)
+        'show_time': get_time_show(footprint.created_time),
+        'favored': is_user_favored_footprint(user_id, footprint.id)
     }
     comment_list = get_footprint_comment_list(footprint.id, 0, 20)
     comment_data = {'comments': [build_comment(comment) for comment in comment_list]}
@@ -179,7 +184,7 @@ def build_footprint_detail(footprint):
     return result
 
 
-def build_footprint_list_info(footprints, lat=None, lon=None):
+def build_footprint_list_info(footprints, user_id, lat=None, lon=None):
     """
     构建足迹列表详情
     :param footprints:
@@ -196,6 +201,7 @@ def build_footprint_list_info(footprints, lat=None, lon=None):
             'comment_num': footprint.comment_num,
             'favor_num': footprint.favor_num,
             'footprint_id': footprint.id,
+            'favored': is_user_favored_footprint(user_id, footprint.id)
         }
         if need_distance:
             distance = geodesic((lat, lon), (footprint.lat, footprint.lon)).meters

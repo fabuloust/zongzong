@@ -55,7 +55,7 @@ def discovery_view(request):
     lon = float(request.GET.get('lon', 0))
     start_num, end_num = get_page_range(page)
     flows = get_flows_db(start_num, end_num)
-    result = build_flows_detail(flows, lon, lat)
+    result = build_flows_detail(flows, request.user.id, lon, lat)
     return json_http_success({'items': result})
 
 

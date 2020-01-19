@@ -81,7 +81,7 @@ def get_footprint_detail_view(request):
     """
     footprint_id = request.GET.get('footprint_id')
     footprint = get_footprint_by_id_db(footprint_id)
-    footprint_detail = build_footprint_detail(footprint)
+    footprint_detail = build_footprint_detail(footprint, request.user.id)
     return json_http_success(footprint_detail)
 
 
@@ -100,5 +100,5 @@ def get_user_footprint_track_view(request):
     footprints = get_footprints_by_user_id_db(user_id, start, end)
     has_more = len(footprints) > 5
     footprints = footprints[:5]
-    result = build_footprint_list_info(footprints, lat, lon)
+    result = build_footprint_list_info(footprints, request.user.id, lat, lon)
     return json_http_success({'footprints': result, 'has_more': has_more})
