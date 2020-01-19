@@ -97,4 +97,4 @@ def build_flows_detail(flows, user_id, lon, lat):
     footprint_details = [build_footprint_for_flow(footprint, user_id, lon, lat) for footprint in footprints]
     activity_details = [build_activity_for_flow(activity, lon, lat) for activity in activities]
     total_flow = footprint_details + activity_details
-    return sorted(total_flow, key=lambda flow: flow['post_time'])
+    return sorted(total_flow, key=lambda flow: flow['post_time'], reverse=True)
