@@ -53,7 +53,8 @@ def get_my_profile_view(request):
         'sex': user_info.sex,
         'wechat_no': user_info.wechat_no,
         'show_wechat_no': user_info.show_wechat_no,
-        'signature': user_info.signature
+        'signature': user_info.signature,
+        'user_id': request.user.id,
     }
     return json_http_success(result)
 

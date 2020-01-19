@@ -44,7 +44,7 @@ def json_http_success(result=None):
     return json_http_response_extend(result)
 
 
-def json_http_error(error_msg, error_code=1, result=None, status=HTTPStatus.BAD_REQUEST):
+def json_http_error(error_msg, error_code=1, result=None, status=HTTPStatus.OK):
     """
     统一接口错误返回格式
     :param error_msg: 错误消息

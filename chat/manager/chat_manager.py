@@ -52,7 +52,7 @@ def get_or_create_conversation_info(conversation_id, send_id, receiver_id):
                                                       defaults={'user_1_id': user_ids[0], 'user_2_id': user_ids[1]})
 
 
-def build_conversation_list(user_id, conversation_id, conversation_info, msg_id):
+def build_conversation_list(user_id, conversation_id, conversation_info, msg_id, get_new):
     """
 
     :param user_id:
@@ -65,10 +65,16 @@ def build_conversation_list(user_id, conversation_id, conversation_info, msg_id)
     receiver_id = conversation_info.user_1_id if conversation_info.user_1_id != user_id else conversation_info.user_2_id
     receiver_info = get_user_info_by_user_id_db(receiver_id)
     query = Q(conversation_id=conversation_id)
-    if msg_id:
-        query &= Q(id__lte=msg_id)
-    chat_record = ChatRecord.objects.filter(query).order_by('-created_time')[0: 21]
-    result = {'has_more': len(chat_record) > 20}
+    result = {}
+    if get_new:
+        query &= Q(id__gte=msg_id)
+        chat_record = ChatRecord.objects.filter(query).order_by('-created_time')
+    else:
+        if msg_id:
+            query &= Q(id__lte=msg_id)
+        chat_record = ChatRecord.objects.filter(query).order_by('-created_time')[0: 21]
+        result = {'has_more': len(chat_record) > 20}
+        chat_record = chat_record[:20]
     result.update({
         'content_list': [{'content': json.loads(chat.content), 'is_me': user_id == chat.addresser_id,
                           'created_time': datetime_to_str(chat.created_time, FORMAT_DATETIME),
