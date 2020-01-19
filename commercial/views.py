@@ -134,6 +134,7 @@ def get_club_activities_info(request):
                               'avatar': club.avatar})
 
 
+@csrf_exempt
 @require_POST
 @login_required
 def favor_activity_view(request):
