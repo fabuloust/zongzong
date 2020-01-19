@@ -83,7 +83,7 @@ def build_activity_for_flow(activity, user_id, lon, lat):
         'location': activity.address,
         'post_time': datetime_to_str(activity.created_time), 'content': activity.introduction,
         'image_list': activity.image_list,
-        'favored': is_user_favored(user_id, activity.id, FlowType.FOOTPRINT),
+        'favored': is_user_favored(user_id, activity.id, FlowType.ACTIVITY),
         'favor_num': activity.favor_num,
     }
 
