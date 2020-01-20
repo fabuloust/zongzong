@@ -84,6 +84,7 @@ class Favor(models.Model):
     flow_type = models.SmallIntegerField(choices=FlowType)
     user_id = models.IntegerField(verbose_name=u'评论者user_id')
     favored = models.BooleanField(verbose_name=u'是否点赞', default=True)
+    test = models.BooleanField(default=False)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     last_modified = models.DateTimeField(auto_now=True)
 
