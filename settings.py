@@ -31,14 +31,6 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 # Application definition
 
-OWN_APPS = [
-    'api',
-    'footprint',
-    'user_info',
-    'weixin',
-    'commercial',
-    'chat',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reversion'
-] + OWN_APPS
+    'reversion',
+    'api',
+    'footprint',
+    'user_info',
+    'weixin',
+    'commercial',
+    'chat',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
