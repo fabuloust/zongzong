@@ -41,7 +41,7 @@ def _test_db_schema_migration():
     """
     对所有app进行makemigrations
     """
-    run("./PYTHON.sh manage.py makemigrations")
+    run("./PYTHON.sh manage.py makemigrations {}".format(' '.join(OWN_APPS)))
 
 
 def _test_db_migrate():
