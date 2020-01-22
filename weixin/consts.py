@@ -1,7 +1,7 @@
 # -*- encoding:utf-8 -*-
 
-APP_ID = 'wx543aba2d0ec781c9'
-APP_SECRET = 'c5414cf13f142c86ee1860bc421d51c1'
+APP_ID = 'wxcf4adfa3d4c1ede6'
+APP_SECRET = 'a87c860ec97c1cbe193cfeddca01cbb6'
 
 SIGNATURE_KEY = u"signature"
 SYNC_REQUEST_TIME_OUT = 2  # 同步请求超时时间, 超过3s, uwsgi worker会harakiri
