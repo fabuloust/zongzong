@@ -47,7 +47,7 @@ class CommercialActivity(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = u'商家活动'
+        verbose_name = u'商家活动啊'
         verbose_name_plural = u'商家活动'
 
     def save(self, force_insert=False, force_update=False, using=None,
