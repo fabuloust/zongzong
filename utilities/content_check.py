@@ -1,6 +1,8 @@
 """
 内容检测相关
 """
+import json
+
 import requests
 
 from log_utils.loggers import info_logger
@@ -18,8 +20,9 @@ def is_content_valid(content):
 
     access_token = get_access_token()
     try:
-        result = requests.post(MSG_URL.format(access_token), {'content': content})
-        if result['error_code'] != 0:
+        data = {'content': content.encode('utf-8').decode('latin1')}
+        result = requests.post(MSG_URL.format(access_token), json.dumps(data, ensure_ascii=False)).json()
+        if result['errcode'] != 0:
             info_logger.info('content:{}, check result: {}'.format(content, result['error_msg']))
             return False
         return True
