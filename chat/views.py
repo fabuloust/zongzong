@@ -7,7 +7,8 @@ from django.views.decorators.http import require_GET, require_POST
 from chat.manager.chat_manager import get_conversation_id_by_user_ids, create_chat_record_db, build_conversation_list, \
     get_or_create_conversation_info, get_conversation_info_by_conversation_id
 from chat.manager.message_manager import ConversationMessageManager
-from utilities.request_utils import get_page_range, get_data_from_request
+from utilities.content_check import is_content_valid
+from utilities.request_utils import get_data_from_request
 from utilities.response import json_http_success, json_http_error
 
 
@@ -49,7 +50,10 @@ def post_content_view(request):
         return json_http_error('参数错误')
     conversation_id = conversation_id or get_conversation_id_by_user_ids([receiver_id, request.user.id])
     content = data['content_json']
-    chat_record = create_chat_record_db(conversation_id, json.dumps(content), request.user.id)
+    content_str = json.dumps(content)
+    if not is_content_valid(content_str):
+        return json_http_error('请文明发言！')
+    chat_record = create_chat_record_db(conversation_id, content_str, request.user.id)
     # 发推送、更新badge、
     ConversationMessageManager.add_message(receiver_id, request.user.id, conversation_id, content)
     return json_http_success()

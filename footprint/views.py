@@ -9,6 +9,7 @@ from footprint.manager.footprint_manager import create_footprint_db, add_favor_d
     build_footprint_detail, get_footprint_by_id_db, get_footprints_by_user_id_db, update_comment_num_db, \
     build_footprint_list_info
 from footprint.models import FlowType
+from utilities.content_check import is_content_valid
 from utilities.request_utils import get_data_from_request, get_page_range
 from utilities.response import json_http_success, json_http_error
 
@@ -40,6 +41,8 @@ def comment_footprint_view(request):
     post_data = get_data_from_request(request)
     footprint_id = post_data['footprint_id']
     comment = post_data['comment']
+    if not is_content_valid(comment):
+        return json_http_error('请注意用词')
     success = create_comment_db(request.user, footprint_id, comment)
     if success:
         comment_num = update_comment_num_db(footprint_id)
@@ -61,6 +64,8 @@ def post_footprint_view(request):
     longitude = post_data.get('lon')
     location = post_data.get('location')
     content = post_data['content']
+    if not is_content_valid(content):
+        return json_http_error('请注意用词')
     image_list = post_data['image_list']
     hide = bool(int(post_data.get('hide', 0)))
     footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list, hide)

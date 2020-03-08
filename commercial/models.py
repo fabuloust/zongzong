@@ -9,11 +9,15 @@ class Club(models.Model):
     def __unicode__(self):
         return '{name}_{id}'.format(name=self.name, id=self.id)
 
+    class Meta:
+        verbose_name = u'商家'
+        verbose_name_plural = u'商家'
+
     name = models.CharField(max_length=40, verbose_name='俱乐部名称')
     fans_num = models.PositiveIntegerField(default=0, verbose_name='粉丝数量')
     address = models.CharField(max_length=100, verbose_name='俱乐部名称')
     avatar = models.CharField(max_length=250, verbose_name='头像')
-    telephone = models.CharField(max_length=15, verbose_name='头像')
+    telephone = models.CharField(max_length=15, verbose_name='电话')
     lat = models.FloatField(verbose_name='维度')
     lon = models.FloatField(verbose_name='经度')
     created_time = models.DateTimeField(auto_now_add=True)
@@ -41,6 +45,10 @@ class CommercialActivity(models.Model):
 
     created_time = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = u'商家活动'
+        verbose_name_plural = u'商家活动'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from user_info.manager.user_info_mananger import update_my_profile_db, get_user_info_by_user_id_db, \
     get_user_brief_profile
+from utilities.content_check import is_content_valid
 from utilities.date_time import str_to_datetime, datetime_to_str
 from utilities.request_utils import get_data_from_request
 from utilities.response import json_http_success, json_http_error
@@ -23,6 +24,8 @@ def set_my_profile_view(request):
     avatar = post_data.get('avatar')
     location = post_data.get('location')
     nickname = post_data.get('nickname')
+    if not is_content_valid(nickname):
+        return json_http_error(u'不合法')
     birthday = post_data.get('birthday')
     wechat_no = post_data.get('wechat_no')
     show_wechat_no = post_data.get('show_wechat_no')

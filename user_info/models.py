@@ -26,3 +26,7 @@ class UserBaseInfo(models.Model):
     def age(self):
         return get_age_by_birthday(self.birthday)
 
+    class Meta:
+        verbose_name = u'用户信息'
+        verbose_name_plural = u'用户信息'
+
