@@ -3,4 +3,4 @@
 # 服务器上传使用的bucket, 即 chunyu-files
 from qiniu_cloud.manager import QiniuCloudStorageManager
 
-ServerBucket = QiniuCloudStorageManager(bucket='chunyu-files', default_host=CDN_HOSTS.CHUNYU)
+ServerBucket = QiniuCloudStorageManager(bucket='chunyu-files', default_host='')
