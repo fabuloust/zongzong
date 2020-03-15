@@ -14,15 +14,13 @@ def get_upload_token():
     return q.upload_token('zonez')
 
 
-def upload_image(file):
+def upload_image(file, file_name):
 
     server_bucket = ServerBucket
-    result = server_bucket.upload_data('/image/temp', file)
-    print(result)
-    # return result
+    result, url = server_bucket.upload_data('back_admin/{}'.format(file_name), file)
     # headers = {'content-type': 'multipart/form-data'}
     # result = requests.post('http://upload.qiniup.com', {'action': ACTION, 'resource_key': 'test',
     #                                                     'upload_token': upload_token, 'file': file}, headers=headers)
     # print(result.content)
     #
-    # # return url
+    return url

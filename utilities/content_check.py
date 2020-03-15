@@ -17,14 +17,12 @@ def is_content_valid(content):
     :param content:
     :return:
     """
-
     access_token = get_access_token()
     data = {"content": content}
     data = json.dumps(data, ensure_ascii=False)
     headers = {'Content-Type': 'application/json'}
     result = requests.post(MSG_URL.format(access_token), data.encode('utf-8'), headers=headers).json()
     if result['errcode'] != 0:
-        print(result)
         info_logger.info('content:{}, check result: {}'.format(content, result['errorMsg']))
         return False
     return True
