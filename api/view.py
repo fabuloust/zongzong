@@ -2,13 +2,13 @@ import qiniu
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_POST
 
-from api.consts import QINIU_ACCESS_KEY, QINIU_SECRET_KEY
 from api.manager.positon_manager import activity_location_container
 from api.manager.view_manager import get_nearby_activity, build_flows_detail
 from footprint.manager.footprint_manager import get_flows_db
 from redis_utils.container.consts import GeoUnitEnum, GeoSortEnum
 from utilities.request_utils import get_page_range
 from utilities.response import json_http_response, json_http_success, json_http_error
+from utilities.upload_utils import get_upload_token
 
 
 def hello_view(request):
@@ -84,5 +84,4 @@ def get_upload_token_view(request):
     :param request:
     :return:
     """
-    q = qiniu.Auth(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
-    return json_http_success({'token': q.upload_token('zonez')})
+    return json_http_success({'token': get_upload_token()})
