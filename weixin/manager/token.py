@@ -18,7 +18,7 @@ def get_access_token():
     try:
         result = requests.get(URL.format(APP_ID, APP_SECRET)).json()
         access_token, expires_in = result['access_token'], result['expires_in']
-        redis.setex('access_token', expires_in, access_token)
+        # redis.setex('access_token', expires_in, access_token)
         return access_token
     except:
         return None
