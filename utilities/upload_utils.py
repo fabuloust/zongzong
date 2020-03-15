@@ -16,7 +16,7 @@ def get_upload_token():
 
 def upload_image(file):
 
-    server_bucket = ServerBucket('zongz', 'http://zongz.cn')
+    server_bucket = ServerBucket
     result = server_bucket.upload_data('/image/temp', file)
     print(result)
     # return result
