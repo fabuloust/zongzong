@@ -19,16 +19,14 @@ def is_content_valid(content):
     """
 
     access_token = get_access_token()
-    try:
-        data = {"content": content}
-        data = json.dumps(data, ensure_ascii=False)
-        headers = {'Content-Type': 'application/json'}
-        result = requests.post(MSG_URL.format(access_token), data.encode('utf-8'), headers=headers).json()
-        if result['errcode'] != 0:
-            info_logger.info('content:{}, check result: {}'.format(content, result['error_msg']))
-            return False
-        return True
-    except:
-        return True
+    data = {"content": content}
+    data = json.dumps(data, ensure_ascii=False)
+    headers = {'Content-Type': 'application/json'}
+    result = requests.post(MSG_URL.format(access_token), data.encode('utf-8'), headers=headers).json()
+    if result['errcode'] != 0:
+        print result
+        info_logger.info('content:{}, check result: {}'.format(content, result['error_msg']))
+        return False
+    return True
 
 
