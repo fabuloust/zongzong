@@ -1,8 +1,6 @@
 """
 内容检测相关
 """
-import json
-
 import requests
 
 from log_utils.loggers import info_logger
@@ -20,8 +18,9 @@ def is_content_valid(content):
 
     access_token = get_access_token()
     try:
-        data = {'content': content.encode('utf-8').decode('latin1')}
-        result = requests.post(MSG_URL.format(access_token), json.dumps(data, ensure_ascii=False)).json()
+        data = '{"content": {}}'.format(content)
+        headers = {'Content-Type': 'application/json'}
+        result = requests.post(MSG_URL.format(access_token), data.encode('utf-8'), headers=headers).json()
         if result['errcode'] != 0:
             info_logger.info('content:{}, check result: {}'.format(content, result['error_msg']))
             return False
