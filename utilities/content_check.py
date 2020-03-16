@@ -36,6 +36,7 @@ def is_image_valid(image_url):
     q = qiniu.Auth(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
     header = {'Content-Type': 'application/json',
               'Authorization': 'Qiniu {}'.format(q.token_of_request(url, body, 'application/json'))}
+    print(header)
     result = requests.post(url, {'data': {'uri': image_url},
                                  "params": {"scene": ['pulp', 'terror', 'politician']}}, headers=header).json()
     print(result)
