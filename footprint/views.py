@@ -10,6 +10,7 @@ from footprint.manager.footprint_manager import create_footprint_db, add_favor_d
     build_footprint_list_info
 from footprint.models import FlowType
 from utilities.content_check import is_content_valid
+from utilities.image_check import is_image_valid
 from utilities.request_utils import get_data_from_request, get_page_range
 from utilities.response import json_http_success, json_http_error
 
@@ -67,6 +68,9 @@ def post_footprint_view(request):
     if not is_content_valid(content):
         return json_http_error('请注意用词')
     image_list = post_data['image_list']
+    for image in image_list:
+        if not is_image_valid(image):
+            return json_http_error('请文明发言')
     hide = bool(int(post_data.get('hide', 0)))
     footprint = create_footprint_db(request.user, content, latitude, longitude, location, image_list, hide)
     if latitude and longitude:
