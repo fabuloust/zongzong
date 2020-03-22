@@ -58,6 +58,10 @@ class Footprint(models.Model):
             from footprint.manager.footprint_manager import add_to_flow
             add_to_flow(self.id, FlowType.FOOTPRINT)
 
+    class Meta:
+        verbose_name = u'足迹'
+        verbose_name_plural = u'足迹'
+
 
 class Comment(models.Model):
     """
@@ -74,6 +78,10 @@ class Comment(models.Model):
     is_deleted = models.BooleanField(default=False)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = u'评论'
+        verbose_name_plural = u'评论'
 
 
 class Favor(models.Model):

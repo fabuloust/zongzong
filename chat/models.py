@@ -61,6 +61,10 @@ class ChatRecord(models.Model):
         else:
             return ''
 
+    class Meta:
+        verbose_name = u'聊天记录'
+        verbose_name_plural = u'聊天记录'
+
 
 class ChatConversationInfo(models.Model):
     """
