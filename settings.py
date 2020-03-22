@@ -14,7 +14,7 @@ DATABASES = {
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -123,7 +123,7 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR + '/zongzong/static/'
+STATIC_ROOT = BASE_DIR + '/static/'
 
 REDIS = {
     'default': {
@@ -135,7 +135,7 @@ REDIS = {
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
 
-LOGS_BASE_DIR = BASE_DIR + '/zongzong/logs/'
+LOGS_BASE_DIR = BASE_DIR + '/logs/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
