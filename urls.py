@@ -29,5 +29,5 @@ urlpatterns = [
     path('commercial/', include('commercial.urls')),
     path('user_info/', include('user_info.urls')),
     path('chat/', include('chat.urls')),
-    path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
