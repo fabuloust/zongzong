@@ -1,3 +1,4 @@
+import json
 import logging
 
 from django.contrib.auth.decorators import login_required
@@ -66,9 +67,11 @@ def post_footprint_view(request):
     longitude = post_data.get('lon')
     location = post_data.get('location')
     content = post_data['content']
-    if not is_content_valid(content):
+    if content and not is_content_valid(content):
         return json_http_error('请注意用词')
     image_list = post_data['image_list']
+    if isinstance(image_list, str):
+        image_list = json.loads(image_list)
     for image in image_list:
         from log_utils.loggers import info_logger
         info_logger.info('{}{}'.format(image, type(image)))
