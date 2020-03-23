@@ -9,6 +9,7 @@ from footprint.manager.footprint_manager import create_footprint_db, add_favor_d
     build_footprint_detail, get_footprint_by_id_db, get_footprints_by_user_id_db, update_comment_num_db, \
     build_footprint_list_info
 from footprint.models import FlowType
+from log_utils.loggers import info_logger
 from utilities.content_check import is_content_valid
 from utilities.image_check import is_image_valid
 from utilities.request_utils import get_data_from_request, get_page_range
@@ -69,6 +70,8 @@ def post_footprint_view(request):
         return json_http_error('请注意用词')
     image_list = post_data['image_list']
     for image in image_list:
+        from log_utils.loggers import info_logger
+        info_logger.info('{}{}'.format(image, type(image)))
         if not is_image_valid(image):
             return json_http_error('请文明发言')
     hide = bool(int(post_data.get('hide', 0)))
