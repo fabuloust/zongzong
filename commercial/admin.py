@@ -5,7 +5,8 @@ from commercial.models import Club, CommercialActivity, TopBanner
 
 
 class ClubAdmin(VersionAdmin):
-    list_display = ['name', 'address', 'telephone']
+    list_display = ['id', 'name', 'address', 'telephone', 'business_type' ]
+    search_fields = ['=id', 'business_type', 'name']
 
 
 admin.site.register(Club, ClubAdmin)
