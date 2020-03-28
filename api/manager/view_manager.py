@@ -78,7 +78,7 @@ def build_footprint_for_flow(footprint, user_id, lon, lat):
 def build_activity_for_flow(activity, user_id, lon, lat):
     club = activity.club
     return {
-        'flow_id': activity.id, 'flow_type': FlowType.ACTIVITY, 'avatar': club.avatar,
+        'flow_id': activity.id, 'flow_type': FlowType.ACTIVITY, 'avatar': club.avatar.url,
         'name': club.name, 'distance': geodesic((lat, lon), (activity.lat, activity.lon)).meters,
         'location': activity.address,
         'post_time': datetime_to_str(activity.created_time), 'content': activity.introduction,
@@ -93,9 +93,9 @@ def build_flows_detail(flows, user_id, lon, lat):
     构建事件流详情，需要针对足迹和活动分别build
     """
     footprint_flows = filter(lambda item: item.flow_type == FlowType.FOOTPRINT, flows)
-    activitie_flows = filter(lambda item: item.flow_type == FlowType.ACTIVITY, flows)
+    activity_flows = filter(lambda item: item.flow_type == FlowType.ACTIVITY, flows)
     footprints = get_footprints_by_ids_db([item.flow_id for item in footprint_flows])
-    activities = get_commercial_activities_by_ids_db([item.flow_id for item in activitie_flows])
+    activities = get_commercial_activities_by_ids_db([item.flow_id for item in activity_flows])
     footprint_details = [build_footprint_for_flow(footprint, user_id, lon, lat) for footprint in footprints]
     activity_details = [build_activity_for_flow(activity, user_id, lon, lat) for activity in activities]
     total_flow = footprint_details + activity_details
