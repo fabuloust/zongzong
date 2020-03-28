@@ -16,6 +16,8 @@ class Club(models.Model):
     name = models.CharField(max_length=40, verbose_name='俱乐部名称')
     fans_num = models.PositiveIntegerField(default=0, verbose_name='粉丝数量')
     address = models.CharField(max_length=100, verbose_name='地址 ')
+    business_type = models.CharField(max_length=200, verbose_name='业务类型')
+    representative = models.CharField(max_length=20, verbose_name='法人代表')
     avatar = models.ImageField(verbose_name='头像', blank=True, null=True)
     telephone = models.CharField(max_length=15, verbose_name='电话')
     lat = models.FloatField(verbose_name='维度')
