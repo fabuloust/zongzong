@@ -59,10 +59,10 @@ def build_activity_detail(activity, user_id):
     """
     club = activity.club
     result = {
-        'top_image': activity.top_image,
+        'top_image': activity.top_image.url,
         'title': activity.name,
         'club_name': club.name,
-        'avatar': club.avatar,
+        'avatar': club.avatar.url,
         'telephone': club.telephone,
         'introduction': activity.introduction,
         'detail': activity.detail,
