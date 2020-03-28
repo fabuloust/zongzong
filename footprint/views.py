@@ -73,8 +73,7 @@ def post_footprint_view(request):
     if isinstance(image_list, str):
         image_list = json.loads(image_list)
     for image in image_list:
-        from log_utils.loggers import info_logger
-        info_logger.info('{}{}'.format(image, type(image)))
+        logging.info('{}{}'.format(image, type(image)))
         if not is_image_valid(image):
             return json_http_error('请文明发言')
     hide = bool(int(post_data.get('hide', 0)))
