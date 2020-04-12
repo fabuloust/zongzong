@@ -9,7 +9,7 @@ from utilities.time_utils import get_time_show
 
 def build_club_info(club):
     return {
-        'avatar': club.avatar,
+        'avatar': club.avatar.url,
         'name': club.name,
         'address': club.address,
         'telephone': club.telephone,
